@@ -1,0 +1,61 @@
+<% layout('layout/boilerplate') %>
+    <section class="border p-2 mb-3" id="labels">
+        <div>
+            <h5 class="d-inline me-3 ">Syntactic labels:</h5>
+            <div class="d-inline" id="syntactic">
+                <ul class="list-inline d-inline">
+                    <% for (let i=0; i<labels[0].phraseLabels.length; i++) {%>
+                        <% if (i===0) {%>
+                            <li class="list-inline-item activeLabel">
+                                <%= labels[0].phraseLabels[i].name%>
+                            </li>
+                            <% } else {%>
+                                <li class="list-inline-item">
+                                    <%= labels[0].phraseLabels[i].name%>
+                                </li>
+                                <%} }%>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section id="mainAnnotationArea">
+        <h4>Annotation Area</h4>
+        <% for (let sent of sentences) {%>
+            <div class="row">
+                <div class="col col-md-1">
+                    <h6>Sentence Number</h6>
+                    <span>
+                        <%= sent.sentNumber %>
+                    </span>
+                </div>
+                <div class="col col-md-7">
+                    <h6>Sentences To Annotate</h6>
+                    <% for (let word of sent.sentWords) {%>
+                        <span class="word">
+                            <%= word[0] %>
+                        </span>
+                        <% }%>
+                </div>
+                <div class="col col-md-2">
+                    <h6>Sentences Semantic Tags</h6>
+                    <span>
+                        <%= sent.semanticLabel %>
+                    </span>
+                </div>
+                <div class=" col col-md-1">
+                    <h6>To Extract Words?</h6>
+                    <span>
+                        <%= sent.isExtractable %>
+                    </span>
+                </div>
+                <div class="col col-md-1">
+                    <h6>Use Previous Sentence</h6>
+                    <span>
+                        <%= sent. isSelfContanined %>
+                    </span>
+                </div>
+            </div>
+            <% }%>
+    </section>
+    <script src="/javascripts/annotation.js"></script>

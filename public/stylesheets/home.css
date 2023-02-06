@@ -1,0 +1,15 @@
+.activeLabel {
+    border: 2px solid rgb(56, 211, 242);
+    background-color: rgb(193, 16, 242);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10%;
+}
+
+.taggedWord {
+    border: 2px solid rgb(24, 188, 133);
+    background-color: rgb(8, 169, 158);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10%;
+}

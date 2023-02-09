@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 
 
@@ -26,14 +28,19 @@ app.engine('ejs', ejsMate); // to design ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+app.use(session({ secret: 'badsecert' }))
+app.use(flash())
 app.use(express.urlencoded({
     extended: true
 }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.listen(3000, () => {
     console.log('Serving on Port 3000')
@@ -75,6 +82,7 @@ app.post('/labels/:id/semantic', async (req, res) => {
             labels.semanticLabels.push({ 'name': label.name });
             await labels.save();
         }
+        req.flash('success', 'Successfully add a new tag.')
         res.redirect(`/labels/{id}`)
     } catch {
         console.log(error)
@@ -93,6 +101,7 @@ app.post('/labels/:id/syntactic', async (req, res) => {
             labels.phraseLabels.push({ 'name': label.name });
             await labels.save();
         }
+        req.flash('success', 'Successfully add a new tag.')
         res.redirect(`/labels/{id}`)
     } catch {
         console.log(error)
@@ -108,6 +117,7 @@ app.delete('/labels/:id/semantic', async (req, res) => {
         labels.semanticLabels.pull({ 'name': label.name });
         await labels.save();
         // console.log(labels.semanticLabels);
+
         res.redirect(`/labels/{id}`)
     } catch {
         console.log(error)

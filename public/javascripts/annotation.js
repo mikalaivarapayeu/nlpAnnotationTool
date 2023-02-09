@@ -37,13 +37,17 @@ function wordTagging(e) {
 }
 
 function updateSentence() {
+    const selectedRowSent = this.parentElement.parentElement.parentElement
     const updateSent = {}
-    const semanticLabel = document.querySelector('#semanticLabel span')
-    const extractable = document.querySelector('#extractable span')
-    const isSelfContained = document.querySelector('#isSelfContained span')
-    const sentence = document.querySelector('.sentPlace')
+    // const semanticLabelSelector = `#${selectedRowSent.id} #semanticLabel span`
+    // const semanticLabel = document.querySelector('#63d0ff5c48f4e07640812926 #semanticLabel span')
+    const semanticLabel = document.querySelector('[id="63d0ff5c48f4e07640812926"]')
 
-    console.log(semanticLabel.innerText)
+    // const extractable = document.querySelector('#extractable span')
+    // const isSelfContained = document.querySelector('#isSelfContained span')
+    // const sentence = document.querySelector('.sentPlace')
+    console.log(semanticLabel)
+    console.log(selectedRowSent.id)
 }
 
 setLabels.forEach(label => {

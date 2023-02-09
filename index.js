@@ -54,7 +54,7 @@ app.get('/sents', async (req, res) => {
     try {
         const labels = await Label.find({});
         const sentences = await Sentence.find({})
-        // console.log(sentences);
+        // console.log(sentences[0]);
         res.render('sentences/sentence', { labels, sentences })
     } catch {
         console.log(error)

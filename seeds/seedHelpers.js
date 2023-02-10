@@ -9,7 +9,7 @@ module.exports.corpus = {
             words: [
                 ['Subsequently', 'none'], [',', 'none'], ['we', 'none'], ['conducted', 'rborder'], ['a', 'none'], ['randomized', 'none'], [',', 'none'], ['double-blind', 'none'], [',', 'none'],
                 ['placebo-controlled', 'none'], ['phase', 'none'], ['2', 'none'], ['trial', 'rbordervalue'],
-                ['of'], ['Lactin-V', 'none'], ['among', 'none'], ['women', 'none'], ['with', 'none'], ['rUTI', 'none'], ['.', 'none']
+                ['of', 'none'], ['Lactin-V', 'none'], ['among', 'none'], ['women', 'none'], ['with', 'none'], ['rUTI', 'none'], ['.', 'none']
             ],
 
         },

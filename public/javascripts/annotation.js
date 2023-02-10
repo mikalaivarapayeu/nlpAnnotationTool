@@ -39,16 +39,44 @@ function wordTagging(e) {
 function updateSentence() {
     const selectedRowSent = this.parentElement.parentElement.parentElement
     const updateSent = {}
-    // const semanticLabelSelector = `#${selectedRowSent.id} #semanticLabel span`
-    // const semanticLabel = document.querySelector('#63d0ff5c48f4e07640812926 #semanticLabel span')
-    const semanticLabel = document.querySelector('[id="63d0ff5c48f4e07640812926"]')
-
-    // const extractable = document.querySelector('#extractable span')
-    // const isSelfContained = document.querySelector('#isSelfContained span')
-    // const sentence = document.querySelector('.sentPlace')
-    console.log(semanticLabel)
-    console.log(selectedRowSent.id)
+    const updatedWords = []
+    const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel span`)
+    const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable span`)
+    const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained span`)
+    const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace span`)
+    updateSent.sentNumber = 1
+    updateSent.semanticLabel = semanticLabel.innerText
+    updateSent.isExtractable = extractable.innerText
+    updateSent.isSelfContanined = selfContained.innerText
+    for (let i = 0; i < words.length; i++) {
+        const wordIndexPair = []
+        if (words[i].classList.contains('taggedWord')) {
+            wordIndexPair.push(i)
+            wordIndexPair.push(words[i].children[1].innerText)
+            updatedWords.push(wordIndexPair)
+        }
+    }
+    updateSent.updatedWordsAndIndx = updatedWords
+    axios({
+        method: 'post',
+        url: '/updatesentences',
+        data: {
+            data: updateSent
+        }
+    });
+    console.log(updateSent)
 }
+
+// function updateSentence() {
+//     axios({
+//         method: 'post',
+//         url: '/updatesentences',
+//         data: {
+//             firstName: 'Fred',
+//             lastName: 'Flintstone'
+//         }
+//     });
+// }
 
 setLabels.forEach(label => {
     label.addEventListener('click', activeLabelToggle)

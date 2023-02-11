@@ -2,7 +2,6 @@ module.exports.corpus = {
     name: 'rUTIProbiotics',
     sentences: [
         {
-            sentNumber: 1,
             labelName: 'studyDesign',
             isExtractable: true,
             isSelfContanined: true,
@@ -14,7 +13,6 @@ module.exports.corpus = {
 
         },
         {
-            sentNumber: 2,
             labelName: 'subjectDescription',
             isExtractable: true,
             isSelfContanined: true,
@@ -30,7 +28,6 @@ module.exports.corpus = {
 
         },
         {
-            sentNumber: 2,
             labelName: 'recruitmentDetails',
             isExtractable: true,
             isSelfContanined: true,

@@ -55,7 +55,7 @@ app.get('/sents', async (req, res) => {
     try {
         const labels = await Label.find({});
         const sentences = await Sentence.find({})
-        console.log(sentences[0]);
+        // console.log(sentences[0]);
         res.render('sentences/sentence', { labels, sentences })
     } catch {
         console.log(error)
@@ -143,17 +143,23 @@ app.delete('/labels/:id/syntactic', async (req, res) => {
 
 app.post('/updatesentences', async (req, res) => {
     try {
-        // const { id } = req.params;
-        // const labels = await Label.findById(id)
-        params = req.body;
-        console.log(params)
+        const { data } = req.body;
+        const sentence = await Sentence.findById(data.sentNumber)
+        sentence.semanticLabel = data.semanticLabel
+        sentence.isExtractable = data.isExtractable
+        sentence.isSelfContanined = data.isSelfContanined
+        for (let updWord of data.updatedWordsAndIndx) {
+            console.log(sentence.sentWords[updWord[0]][1])
+            // sentence.sentWords[updWord[0]][1] = updWord[1]
+        }
+        // await sentence.save()
         // // console.log(labels.semanticLabels);
         // if (label.name !== '') {
         //     labels.semanticLabels.push({ 'name': label.name });
         //     await labels.save();
         // }
-        // req.flash('success', 'Successfully add a new tag.')
-        // res.redirect(`/labels/{id}`)
+        req.flash('success', 'Successfully updated the sentence.')
+        res.redirect('/sents')
     } catch {
         console.log(error)
     }

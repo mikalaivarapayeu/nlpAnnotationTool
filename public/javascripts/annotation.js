@@ -44,7 +44,7 @@ function updateSentence() {
     const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable span`)
     const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained span`)
     const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace span`)
-    updateSent.sentNumber = 1
+    updateSent.sentNumber = selectedRowSent.id
     updateSent.semanticLabel = semanticLabel.innerText
     updateSent.isExtractable = extractable.innerText
     updateSent.isSelfContanined = selfContained.innerText

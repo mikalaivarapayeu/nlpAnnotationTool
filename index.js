@@ -144,21 +144,26 @@ app.delete('/labels/:id/syntactic', async (req, res) => {
 app.post('/updatesentences', async (req, res) => {
     try {
         const { data } = req.body;
+        // console.log(data)
         const sentence = await Sentence.findById(data.sentNumber)
         const filter = { _id: data.sentNumber }
         const update = {}
         sentence.semanticLabel = data.semanticLabel
         sentence.isExtractable = data.isExtractable
         sentence.isSelfContanined = data.isSelfContanined
+        console.log(data)
+        // console.log(data.updatedWordsAndIndx)
         for (let updWord of data.updatedWordsAndIndx) {
-            console.log(sentence.sentWords[updWord[0]][1])
-            sentence.sentWords[updWord[0]][1] = updWord[1]
+            let updSentIdx = parseInt(updWord[0]);
+            // console.log(updWord)
+            sentence.sentWords[updSentIdx][1] = updWord[1]
         }
-        let updSent = await Sentence.findOneAndUpdate(filter, sentence, {
-            new: true
-        });
-        req.flash('success', 'Successfully updated the sentence.')
-        res.redirect('/sents')
+        // console.log(sentence)
+        // let updSent = await Sentence.findOneAndUpdate(filter, sentence, {
+        //     new: true
+        // });
+        // req.flash('success', 'Successfully updated the sentence.')
+        // res.redirect('/sents')
     } catch {
         console.log(error)
     }

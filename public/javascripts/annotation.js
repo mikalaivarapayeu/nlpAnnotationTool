@@ -1,7 +1,7 @@
 const setLabels = document.querySelectorAll('#labels li');
 const words = document.querySelectorAll('.word');
 const updateSentArr = document.querySelectorAll('.updateSentence');
-const taggedWords = document.querySelectorAll('.taggedWord');
+const taggedWords = document.querySelectorAll('.taggedSpan');
 
 function activeLabelToggle(e) {
     let activeLabelCurrent = document.querySelector('.activeLabel');
@@ -30,7 +30,7 @@ function wordTagging(e) {
     spanLabelWord.append(taggedWordSpan)
     spanLabelWord.append(spanLabel)
     spanLabelWord.setAttribute('wlbl', activeLabel.innerText)
-    spanLabelWord.classList.toggle('taggedWord');
+    spanLabelWord.classList.toggle('taggedSpan');
     spanLabelWord.addEventListener('click', untaggingWord);
     clickedElm.replaceWith(spanLabelWord);
 
@@ -43,19 +43,21 @@ function updateSentence() {
     const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel span`)
     const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable span`)
     const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained span`)
-    const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace span`)
+    const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .taggedWord`)
     updateSent.sentNumber = selectedRowSent.id
     updateSent.semanticLabel = semanticLabel.innerText
     updateSent.isExtractable = extractable.innerText
     updateSent.isSelfContanined = selfContained.innerText
-    for (let i = 0; i < words.length; i++) {
+    for (let word of words) {
         const wordIndexPair = []
-        if (words[i].classList.contains('taggedWord')) {
-            wordIndexPair.push(i)
-            wordIndexPair.push(words[i].children[1].innerText)
-            updatedWords.push(wordIndexPair)
-        }
+        wordIdx = word.getAttribute('data-widx')
+        console.log(word)
+        wordText = word.innerText
+        wordIndexPair.push(wordIdx)
+        wordIndexPair.push(wordText)
+        updatedWords.push(wordIndexPair)
     }
+
     updateSent.updatedWordsAndIndx = updatedWords
     axios({
         method: 'post',

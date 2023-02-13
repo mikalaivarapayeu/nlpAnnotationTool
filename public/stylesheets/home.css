@@ -6,7 +6,7 @@
     border-radius: 10%;
 }
 
-.taggedWord {
+.taggedSpan {
     border: 2px solid rgb(24, 188, 133);
     background-color: rgb(8, 169, 158);
     color: white;

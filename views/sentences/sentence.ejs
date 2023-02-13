@@ -47,18 +47,18 @@
                 </div>
                 <div class="col col-md-7">
                     <p class="sentPlace">
-                        <% for (let word of sent.sentWords) {%>
-                            <% if( word[1]==='none' ) {%>
-                                <span class="word">
-                                    <%= word[0] %>
+                        <% for (let i=0; i< sent.sentWords.length; i++) {%>
+                            <% if( sent.sentWords[i][1]==='none' ) {%>
+                                <span data-widx="<%=i %>" class="word">
+                                    <%= sent.sentWords[i][0] %>
                                 </span>
                                 <% } else {%>
-                                    <span wlbl="word[1]" class="taggedWord">
-                                        <span>
-                                            <%= word[0] %>
+                                    <span class="taggedSpan">
+                                        <span class="taggedWord" data-widx="<%=i %>">
+                                            <%=sent.sentWords[i][0] %>
                                         </span>
                                         <span>
-                                            <%= word[1] %>
+                                            <%= sent.sentWords[i][1] %>
                                         </span>
                                     </span>
                                     <% }}%>

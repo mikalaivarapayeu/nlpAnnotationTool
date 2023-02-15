@@ -151,19 +151,20 @@ app.post('/updatesentences', async (req, res) => {
         sentence.semanticLabel = data.semanticLabel
         sentence.isExtractable = data.isExtractable
         sentence.isSelfContanined = data.isSelfContanined
-        console.log(data)
+        // console.log(data)
         // console.log(data.updatedWordsAndIndx)
         for (let updWord of data.updatedWordsAndIndx) {
             let updSentIdx = parseInt(updWord[0]);
             // console.log(updWord)
+            // console.log(sentence.sentWords[updSentIdx])
             sentence.sentWords[updSentIdx][1] = updWord[1]
         }
         // console.log(sentence)
-        // let updSent = await Sentence.findOneAndUpdate(filter, sentence, {
-        //     new: true
-        // });
-        // req.flash('success', 'Successfully updated the sentence.')
-        // res.redirect('/sents')
+        let updSent = await Sentence.findOneAndUpdate(filter, sentence, {
+            new: true
+        });
+        req.flash('success', 'Successfully updated the sentence.')
+        res.redirect('/sents')
     } catch {
         console.log(error)
     }

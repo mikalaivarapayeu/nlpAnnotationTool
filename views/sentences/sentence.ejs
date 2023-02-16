@@ -26,16 +26,16 @@
                 <h6>Sentence Number</h6>
             </div>
             <div class="col col-md-7">
-                <h6>Sentences To Annotate</h6>
+                <h6>Sentence Annotation</h6>
             </div>
             <div class="col col-md-2">
-                <h6>Sentences Semantic Tags</h6>
+                <h6> Semantic Tags</h6>
             </div>
             <div class="col col-md-1">
-                <h6>To Extract Words?</h6>
+                <h6>Extract Words?</h6>
             </div>
             <div class="col col-md-1">
-                <h6>Use Previous Sentence</h6>
+                <h6>Self contained?</h6>
             </div>
         </div>
         <% for (let sent of sentences) {%>
@@ -70,23 +70,73 @@
                 </div>
                 <div class="col col-md-2">
                     <div id="semanticLabel">
-                        <span>
-                            <%= sent.semanticLabel %>
-                        </span>
+                        <div class="semanticTagSelection">
+                            <select name="semanticTags" id="semanticTagSelect">
+                                <% for (let i=0; i<labels[0].semanticLabels.length; i++) {%>
+                                    <% if (labels[0].semanticLabels[i].name===sent.semanticLabel ) {%>
+                                        <option value=<%=labels[0].semanticLabels[i].name %> selected>
+                                            <%=labels[0].semanticLabels[i].name%>
+                                        </option>
+                                        <% } else { %>
+                                            <option value=<%=labels[0].semanticLabels[i].name %>>
+                                                <%=labels[0].semanticLabels[i].name%>
+                                            </option>
+                                            <% }}%>
+                            </select>
+                        </div>
+                        <p class="semTagPlaceHolder">
+                            <span>
+                                <%= sent.semanticLabel %>
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <div class=" col col-md-1">
                     <div id="extractable">
-                        <span>
-                            <%= sent.isExtractable %>
-                        </span>
+                        <div class="extractionSelection">
+                            <select name="wordExtrationBool" id="wordExtrationBool">
+                                <% if (sent.isExtractable) {%>
+                                    <option value="true" selected>Yes</option>
+                                    <option value="false">No</option>
+                                    <% } else {%>
+                                        <option value="true">Yes</option>
+                                        <option value="false" selected>No</option>
+                                        <% } %>
+                            </select>
+                        </div>
+                        <p class="extractablePlaceHolder">
+                            <span>
+                                <% if (sent.isExtractable) {%>
+                                    Yes
+                                    <% } else {%>
+                                        No
+                                        <% } %>
+                            </span>
+                        </p>
                     </div>
                 </div>
                 <div class="col col-md-1">
-                    <div id="isSelfContained">
-                        <span>
-                            <%= sent. isSelfContanined %>
-                        </span>
+                    <div class="isSelfContained">
+                        <div class="isSelfContainedSelection">
+                            <select name="isSelfContainedSelect" id="isSelfContainedSelect">
+                                <% if (sent.isSelfContanined) {%>
+                                    <option value="true" selected>Yes</option>
+                                    <option value="false">No</option>
+                                    <% } else {%>
+                                        <option value="true">Yes</option>
+                                        <option value="false" selected>No</option>
+                                        <% } %>
+                            </select>
+                        </div>
+                        <p class="containedPlaceHolder">
+                            <span>
+                                <% if ( sent. isSelfContanined) {%>
+                                    Yes
+                                    <% } else {%>
+                                        No
+                                        <% } %>
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>

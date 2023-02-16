@@ -2,6 +2,11 @@ const setLabels = document.querySelectorAll('#labels li');
 const words = document.querySelectorAll('.word');
 const updateSentArr = document.querySelectorAll('.updateSentence');
 const taggedWords = document.querySelectorAll('.taggedSpan');
+const semanticTags = document.querySelectorAll('.semanticTagSelection select')
+const theSelfContained = document.querySelectorAll('.isSelfContainedSelection select')
+const theExtractable = document.querySelectorAll('.extractionSelection select')
+// console.log(semanticTags)
+
 
 function activeLabelToggle(e) {
     let activeLabelCurrent = document.querySelector('.activeLabel');
@@ -45,7 +50,7 @@ function updateSentence() {
     const selectedRowSent = this.parentElement.parentElement.parentElement
     const updateSent = {}
     const updatedWords = []
-    const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel span`)
+    const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel .semTagPlaceHolder span`)
     const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable span`)
     const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained span`)
     const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .word`)
@@ -79,16 +84,30 @@ function updateSentence() {
     console.log(updateSent)
 }
 
-// function updateSentence() {
-//     axios({
-//         method: 'post',
-//         url: '/updatesentences',
-//         data: {
-//             firstName: 'Fred',
-//             lastName: 'Flintstone'
-//         }
-//     });
-// }
+
+function semanticTagSelection(e) {
+    const newSelectedTag = this;
+    const currentTag = this.parentElement.parentElement.children[1].children[0]
+    currentTag.innerText = newSelectedTag.value
+    // console.log(currentTag)
+
+}
+
+function booleanSelection(e) {
+    const newSelectedTag = this;
+    const currentTag = this.parentElement.parentElement.children[1].children[0]
+    console.log(currentTag.innerText)
+    if (newSelectedTag.value === 'true') {
+        currentTag.innerText = 'Yes';
+    } else {
+        currentTag.innerText = 'No'
+    }
+    // console.log(currentTag)
+
+}
+
+
+
 
 setLabels.forEach(label => {
     label.addEventListener('click', activeLabelToggle)
@@ -108,4 +127,16 @@ taggedWords.forEach(taggedWord => {
 
 updateSentArr.forEach(sent => {
     sent.addEventListener('click', updateSentence)
+})
+
+semanticTags.forEach(semTagSpan => {
+    semTagSpan.addEventListener('change', semanticTagSelection)
+})
+
+theSelfContained.forEach(selfContaninedItem => {
+    selfContaninedItem.addEventListener('change', booleanSelection)
+})
+
+theExtractable.forEach(isExtractable => {
+    isExtractable.addEventListener('change', booleanSelection)
 })

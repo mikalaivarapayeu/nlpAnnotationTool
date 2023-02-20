@@ -51,13 +51,22 @@ function updateSentence() {
     const updateSent = {}
     const updatedWords = []
     const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel .semTagPlaceHolder span`)
-    const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable span`)
-    const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained span`)
+    const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable .extractablePlaceHolder span`)
+    const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained .containedPlaceHolder span`)
     const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .word`)
     updateSent.sentNumber = selectedRowSent.id
     updateSent.semanticLabel = semanticLabel.innerText
-    updateSent.isExtractable = extractable.innerText
-    updateSent.isSelfContanined = selfContained.innerText
+    if (extractable === 'Yes') {
+        updateSent.isExtractable = true
+    } else {
+        updateSent.isExtractable = false
+    }
+    if (selfContained === 'Yes') {
+        updateSent.isSelfContanined = true
+    } else {
+        updateSent.isSelfContanined = false
+    }
+
     for (let word of words) {
         const wordIndexPair = []
         let wordIdx = word.getAttribute('data-widx')

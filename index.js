@@ -171,6 +171,26 @@ app.post('/updatesentences', async (req, res) => {
 
 });
 
+app.get('/sents/duplicate/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const sent = await Sentence.findById(id)
+        const newSent = new Sentence({
+            sentNumber: sent.sentNumber,
+            semanticLabel: sent.labelName,
+            isExtractable: sent.isExtractable,
+            isSelfContanined: sent.isSelfContanined,
+            sentWords: sent.sentWords
+        })
+        // console.log(newSent)
+        await newSent.save();
+        res.redirect('/sents')
+    } catch {
+        console.log(error)
+    }
+
+})
+
 
 
 // app.use('/sents', sentRoutes);

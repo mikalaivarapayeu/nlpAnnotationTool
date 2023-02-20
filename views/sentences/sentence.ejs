@@ -63,9 +63,11 @@
                                     </span>
                                     <% }}%>
                     </p>
-                    <div>
-                        <button class="btn btn-primary btn-sm updateSentence">Update
-                            Sentence</button>
+                    <div class="">
+                        <button class="btn btn-primary btn-sm updateSentence">Update Sentence</button>
+                        <form action="sents/duplicate/<%=sent._id %>" class="d-inline">
+                            <button class="btn btn-primary btn-sm updateSentence ">Duplicate Sentence</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col col-md-2">

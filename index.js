@@ -12,6 +12,7 @@ const flash = require('connect-flash');
 // const sentRoutes = require('./routes/sentences');
 const Label = require('./models/nlpLabels');
 const Sentence = require('./models/sentence');
+const paginate = require('./utils/pagination')
 
 
 mongoose.connect('mongodb://localhost:27017/clinicalTrialCorpus_v1');
@@ -51,10 +52,13 @@ app.get('/', (req, res) => {
     res.render('home')
 });
 
-app.get('/sents', async (req, res) => {
+app.get('/sents', paginate(Sentence), async (req, res) => {
     try {
-        const labels = await Label.find({});
-        const sentences = await Sentence.find({})
+        const sentences = res.paginatedResults.results;
+        // console.log('############')
+        // console.log(sentPag);
+        // const sentences = await Sentence.find({})
+        const labels = await Label.find({})
         // console.log(sentences[0]);
         res.render('sentences/sentence', { labels, sentences })
     } catch {

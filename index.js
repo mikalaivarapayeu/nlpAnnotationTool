@@ -54,13 +54,16 @@ app.get('/', (req, res) => {
 
 app.get('/sents', paginate(Sentence), async (req, res) => {
     try {
-        const sentences = res.paginatedResults.results;
+        const page = parseInt(req.query.page);
+        const sentences = res.paginatedResults;
+        // const totalNum = await Sentence.countDocuments().exec()
+        // console.log(totalNum)
         // console.log('############')
         // console.log(sentPag);
         // const sentences = await Sentence.find({})
         const labels = await Label.find({})
         // console.log(sentences[0]);
-        res.render('sentences/sentence', { labels, sentences })
+        res.render('sentences/sentence', { labels, sentences, page })
     } catch {
         console.log(error)
     }
@@ -148,7 +151,7 @@ app.delete('/labels/:id/syntactic', async (req, res) => {
 app.post('/updatesentences', async (req, res) => {
     try {
         const { data } = req.body;
-        // console.log(data)
+        console.log(data)
         const sentence = await Sentence.findById(data.sentNumber)
         const filter = { _id: data.sentNumber }
         const update = {}
@@ -168,7 +171,7 @@ app.post('/updatesentences', async (req, res) => {
             new: true
         });
         req.flash('success', 'Successfully updated the sentence.')
-        res.redirect('/sents')
+        res.redirect('/sents?page=1')
     } catch {
         console.log(error)
     }
@@ -188,7 +191,7 @@ app.get('/sents/duplicate/:id', async (req, res) => {
         })
         // console.log(newSent)
         await newSent.save();
-        res.redirect('/sents')
+        res.redirect('/sents?page=1')
     } catch {
         console.log(error)
     }

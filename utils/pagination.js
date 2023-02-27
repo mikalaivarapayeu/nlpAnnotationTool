@@ -4,13 +4,12 @@ module.exports = function paginatedResults(model) {
         // const limit = parseInt(req.query.limit)
         const limit = 5;
         const startIndex = (page - 1) * limit
-        const endIndex = page * limit
-
+        const endIndex = (page + 3) * limit
         const results = {}
 
         if (endIndex < await model.countDocuments().exec()) {
             results.next = {
-                page: page + 1,
+                page: page + 3,
                 limit: limit
             }
         }

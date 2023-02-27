@@ -38,7 +38,7 @@
                 <h6>Self contained?</h6>
             </div>
         </div>
-        <% for (let sent of sentences) {%>
+        <% for (let sent of sentences.results) {%>
             <div class="row mb-3" id="<%=sent._id %>">
                 <div class="col col-md-1">
                     <span>
@@ -63,10 +63,10 @@
                                     </span>
                                     <% }}%>
                     </p>
-                    <div class="">
+                    <div>
                         <button class="btn btn-primary btn-sm updateSentence">Update Sentence</button>
                         <form action="sents/duplicate/<%=sent._id %>" class="d-inline">
-                            <button class="btn btn-primary btn-sm updateSentence ">Duplicate Sentence</button>
+                            <button class="btn btn-primary btn-sm ">Duplicate Sentence</button>
                         </form>
                     </div>
                 </div>
@@ -147,13 +147,27 @@
     <section>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <% if (page> 1) { %>
+                    <li class="page-item"><a class="page-link" href="/sents?page=<%=page-1 %>">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="/sents?page=<%=page %>">
+                            <%=page%>
+                        </a></li>
+                    <% } else { %>
+                        <li class="page-item"><a class="page-link" href="/sents?page=<%=page %>">1</a></li>
+
+                        <% } %>
+                            <li class="page-item"><a class="page-link" href="/sents?page=<%=page+1 %>">
+                                    <%=page+1%>
+                                </a></li>
+                            <li class="page-item"><a class="page-link" href="/sents?page=<%=page+2 %>">
+                                    <%=page+2%>
+                                </a></li>
+                            <% if (sentences.next) { %>
+                                <li class="page-item"><a class="page-link" href="/sents?page=<%=page+3 %>">Next</a></li>
+                                <% } %>
+
             </ul>
         </nav>
     </section>
-    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src=" https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/javascripts/annotation.js"></script>

@@ -1,5 +1,5 @@
 const Label = require('../models/nlpLabels');
-
+const Sentence = require('./models/sentence');
 
 module.exports.index = async (req, res) => {
     // try {

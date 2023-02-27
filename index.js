@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 
 
 
-// const sentRoutes = require('./routes/sentences');
+const labelRoutes = require('./routes/labelRoutes');
 const Label = require('./models/nlpLabels');
 const Sentence = require('./models/sentence');
 const paginate = require('./utils/pagination')
@@ -70,83 +70,8 @@ app.get('/sents', paginate(Sentence), async (req, res) => {
 
 });
 
-app.get('/labels/:id', async (req, res) => {
-    try {
-        const labels = await Label.find({});
-        res.render('labels/label', { labels })
-    } catch {
-        console.log(error)
-    }
+app.use('/labels', labelRoutes);
 
-});
-
-app.post('/labels/:id/semantic', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        // console.log(labels.semanticLabels);
-        if (label.name !== '') {
-            labels.semanticLabels.push({ 'name': label.name });
-            await labels.save();
-        }
-        req.flash('success', 'Successfully add a new tag.')
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-
-});
-
-
-app.post('/labels/:id/syntactic', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        // console.log(labels);
-        if (label.name !== '') {
-            labels.phraseLabels.push({ 'name': label.name });
-            await labels.save();
-        }
-        req.flash('success', 'Successfully add a new tag.')
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-
-});
-
-app.delete('/labels/:id/semantic', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        labels.semanticLabels.pull({ 'name': label.name });
-        await labels.save();
-        // console.log(labels.semanticLabels);
-
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-
-});
-
-app.delete('/labels/:id/syntactic', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        labels.phraseLabels.pull({ 'name': label.name });
-        await labels.save();
-        // console.log(labels.semanticLabels);
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-
-});
 
 app.post('/updatesentences', async (req, res) => {
     try {

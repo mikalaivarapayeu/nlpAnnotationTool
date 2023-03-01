@@ -85,7 +85,7 @@ function updateSentence() {
     updateSent.updatedWordsAndIndx = updatedWords
     axios({
         method: 'post',
-        url: '/updatesentences',
+        url: '/sents/updatesentences',
         data: {
             data: updateSent
         }

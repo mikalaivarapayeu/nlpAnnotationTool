@@ -8,7 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 
-
+const ExpressError = require('./utils/expressErrors');
 const labelRoutes = require('./routes/labelRoutes');
 const sentsRoutes = require('./routes/sentencesRoutes');
 const Label = require('./models/nlpLabels');
@@ -56,4 +56,14 @@ app.get('/', (req, res) => {
 
 app.use('/labels', labelRoutes);
 app.use('/sents', sentsRoutes);
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('partials/errors', { err })
+})
 

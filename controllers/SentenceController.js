@@ -75,3 +75,15 @@ module.exports.updateSingleSentence = async (req, res) => {
 
 };
 
+module.exports.deleteSingleSentence = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const labels = await Sentence.findByIdAndDelete(id)
+        // console.log(labels.semanticLabels);
+
+        res.redirect('/sents?page=1')
+    } catch {
+        console.log(error)
+    }
+}
+

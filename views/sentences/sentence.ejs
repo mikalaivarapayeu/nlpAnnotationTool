@@ -68,6 +68,9 @@
                         <form action="sents/duplicate/<%=sent._id %>" class="d-inline">
                             <button class="btn btn-primary btn-sm ">Duplicate Sentence</button>
                         </form>
+                        <form action="sents/<%=sent._id %>?_method=DELETE" method="POST" class="d-inline">
+                            <button class="btn btn-primary btn-sm ">Delete Sentence</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col col-md-2">

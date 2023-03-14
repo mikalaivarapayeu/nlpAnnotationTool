@@ -87,3 +87,18 @@ module.exports.deleteSingleSentence = async (req, res) => {
     }
 }
 
+module.exports.sentenceDetails = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const sentence = await Sentence.findById(id)
+        // console.log(sentence)
+        // console.log(constructedSentence)
+        res.render('sentences/sentenceDetails', { sentence })
+    } catch {
+        console.log(error)
+    }
+}
+
+
+
+

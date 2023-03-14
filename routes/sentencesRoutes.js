@@ -7,7 +7,7 @@ const Sentence = require('../models/sentence');
 router.get('/', paginate(Sentence), sents.index);
 router.get('/duplicate/:id', sents.duplicateSentence);
 router.post('/updatesentences', sents.updateSingleSentence);
-router.delete('/:id', sents.deleteSingleSentence);
+router.route('/:id').get(sents.sentenceDetails).delete(sents.deleteSingleSentence);
 
 
 

@@ -2,7 +2,7 @@
 const newPairs = document.querySelectorAll('.btnNewPair');
 const modal = document.getElementById('Modal')
 const wordSave = document.querySelector("#saveWord")
-const addWords = document.querySelectorAll('.addWord');
+const deleteWords = document.querySelectorAll('.deleteWord');
 
 
 
@@ -78,7 +78,7 @@ wordSave.addEventListener('click', function (event) {
             const addButton = document.createElement('button')
             addButton.classList.add('btn', 'btn-primary', 'btn-sm')
             const deleteButton = document.createElement('button')
-            deleteButton.classList.add('btn', 'btn-primary', 'btn-sm')
+            deleteButton.classList.add('btn', 'btn-primary', 'btn-sm', 'deleteWord')
             // construct HTML frgament
             wordSpan.innerText = wordForm.value
             wordDiv.append(wordSpan)
@@ -93,6 +93,7 @@ wordSave.addEventListener('click', function (event) {
             addButton.setAttribute('data-bs-target', '#Modal')
             buttonDiv.append(addButton)
             deleteButton.innerText = 'Delete Word'
+            deleteButton.addEventListener('click', deletWordFunction)
             buttonDiv.append(deleteButton)
             rowDiv.append(wordDiv)
             rowDiv.append(labelDiv)
@@ -106,5 +107,17 @@ wordSave.addEventListener('click', function (event) {
     const selectedModal = bootstrap.Modal.getInstance(document.getElementById('Modal'));
     selectedModal.hide()
 })
+
+
+function deletWordFunction(event) {
+    const buttonDeleteWord = this;
+    const closestWordLabelDiv = buttonDeleteWord.closest('.wordLabelPair');
+    closestWordLabelDiv.remove()
+}
+
+
+deleteWords.forEach(deleteWord => {
+    deleteWord.addEventListener('click', deletWordFunction)
+});
 
 

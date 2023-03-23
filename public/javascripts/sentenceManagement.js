@@ -3,6 +3,7 @@ const newPairs = document.querySelectorAll('.btnNewPair');
 const modal = document.getElementById('Modal')
 const wordSave = document.querySelector("#saveWord")
 const deleteWords = document.querySelectorAll('.deleteWord');
+const saveSentWords = document.querySelector("#saveSentWords")
 
 
 
@@ -120,4 +121,29 @@ deleteWords.forEach(deleteWord => {
     deleteWord.addEventListener('click', deletWordFunction)
 });
 
+
+function saveWordsFunction(event) {
+    const allWordLabelPairsDivs = document.querySelectorAll('.wordLabelPair')
+    const buttonId = document.querySelector('#saveSentWords')
+    // console.log(buttonId.getAttribute('data-sent-id'))
+    const wordLabelList = []
+    for (let wordLabelDiv of allWordLabelPairsDivs) {
+        const wordLabelPair = []
+        wordLabelPair.push(wordLabelDiv.children[0].children[0].innerText)
+        wordLabelPair.push(wordLabelDiv.children[1].children[0].innerText)
+        wordLabelList.push(wordLabelPair)
+
+    }
+    axios({
+        method: 'post',
+        url: '/sents/updatesentwords',
+        data: {
+            sent_id: buttonId.getAttribute('data-sent-id'),
+            data: wordLabelList
+        }
+    });
+    // console.log(wordLabelList[0])
+}
+
+saveSentWords.addEventListener('click', saveWordsFunction)
 

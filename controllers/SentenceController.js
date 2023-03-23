@@ -14,7 +14,7 @@ module.exports.index = async (req, res) => {
         // console.log(sentPag);
         // const sentences = await Sentence.find({})
         const labels = await Label.find({})
-        // console.log(sentences[0]);
+        // console.log(sentences.results[0]);
         res.render('sentences/sentence', { labels, sentences, page })
     } catch {
         console.log(error)
@@ -55,12 +55,8 @@ module.exports.updateSingleSentence = async (req, res) => {
         sentence.semanticLabel = data.semanticLabel
         sentence.isExtractable = data.isExtractable
         sentence.isSelfContanined = data.isSelfContanined
-        // console.log(data)
-        // console.log(data.updatedWordsAndIndx)
         for (let updWord of data.updatedWordsAndIndx) {
             let updSentIdx = parseInt(updWord[0]);
-            // console.log(updWord)
-            // console.log(sentence.sentWords[updSentIdx])
             sentence.sentWords[updSentIdx][1] = updWord[1]
         }
         // console.log(sentence)
@@ -68,7 +64,7 @@ module.exports.updateSingleSentence = async (req, res) => {
             new: true
         });
         req.flash('success', 'Successfully updated the sentence.')
-        res.redirect('/sents?page=1')
+        // res.redirect('/sents?page=1')
     } catch {
         console.log(error)
     }
@@ -98,6 +94,37 @@ module.exports.sentenceDetails = async (req, res) => {
         console.log(error)
     }
 }
+
+
+module.exports.updateSentWords = async (req, res) => {
+    try {
+        const { data, sent_id } = req.body;
+        const sentence = await Sentence.findById(sent_id)
+        const filter = { _id: sent_id }
+        // console.log(sentence)
+        sentence.sentWords = data
+        // sentence.semanticLabel = sentence.semanticLabel
+        // sentence.isExtractable = sentence.isExtractable
+        // sentence.isSelfContanined = sentence.isExtractable
+        // for (let updWord of data.updatedWordsAndIndx) {
+        //     let updSentIdx = parseInt(updWord[0]);
+        //     // console.log(updWord)
+        //     // console.log(sentence.sentWords[updSentIdx])
+        //     sentence.sentWords[updSentIdx][1] = updWord[1]
+        // }
+        // console.log(data)
+        // console.log(sentence)
+        let updSent = await Sentence.findOneAndUpdate(filter, sentence, {
+            new: true
+        });
+        console.log('after update')
+        req.flash('success', 'Successfully updated the sentence.')
+        // res.redirect('sentences/sentenceDetails', { sentence })
+    } catch {
+        console.log(error)
+    }
+
+};
 
 
 

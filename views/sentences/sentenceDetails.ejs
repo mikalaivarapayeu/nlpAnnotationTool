@@ -12,82 +12,96 @@
 </head>
 
 <body>
-    <h1>Sentence Details</h1>
-    <div>
-
-        <p><span>Sentence Words</span <% for (let word of sentence.sentWords) { %><span>
-                <%= word[0] %>
-            </span>
-            <% } %>
-        </p>
-    </div>
-    <div>
+    <section class="col-md-8 offset-md-2 my-3">
         <div class="row">
-            <div class="col-5">
-                <span> WORD</span>
+            <div class="col-md-2 d-flex flex-column text-white bg-primary ">
+                <h6 class="pt-2">Menu</h6>
+                <a class="nav-link text-white pt-4 align-self-start text-decoration-none fs-6 "
+                    href="/sents?page=1">Annotation</a>
+                <button class="btn text-white btn-link btn-sm align-self-start text-decoration-none fs-6 "
+                    data-sent-id="<%=sentence._id %>" id="saveSentWords">Save
+                    Updates</button>
             </div>
-            <div class="col-4">
-                <span> Label</span>
+            <div class="col-md-10">
+                <h1>Sentence Details</h1>
+                <div class="d-flex flex-row border-bottom border-top border-info">
+                    <h6 class="text-nowrap align-self-top pt-2">SENTENCE WORDS:</h6>
+                    <p class="px-2 lead">
+                        <% for (let word of sentence.sentWords) { %><span>
+                                <%= word[0] %>
+                            </span>
+                            <% } %>
+                    </p>
+                </div>
+                <div>
+                    <div class="row pt-3 border-bottom border-info">
+                        <div class="col-4">
+                            <h6> WORD</h6>
+                        </div>
+                        <div class="col-2">
+                            <h6> Label</h6>
 
-            </div>
-            <div class="col-3">
-                <span> Utilities</span>
-            </div>
-        </div>
-        <% for (let i=0; i < sentence.sentWords.length; i++) {%>
-            <div class="row wordLabelPair">
-                <div class="col-5 word">
-                    <span>
-                        <%=sentence.sentWords[i][0] %>
-                    </span>
-                </div>
-                <div class="col-3 label">
-                    <span>
-                        <%=sentence.sentWords[i][1] %>
-                    </span>
-                </div>
-                <div class="col-4">
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#Modal">Update
-                        Word</button>
-                    <button class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#Modal">Add
-                        Word</button>
-                    <button class="btn btn-primary btn-sm deleteWord">Delete Word</button>
-                </div>
-            </div>
-            <% } %>
-    </div>
-    <div>
-        <a class="nav-link d-inline" href="/sents?page=1">Sentences</a>
-        <button class="btn btn-primary btn-sm d-inline" data-sent-id="<%=sentence._id %>" id="saveSentWords">Save
-            Updates</button>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="Modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eModalLabel">Sentence Word</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" id="sentWord" class="form-control" placeholder="Word"
-                                    aria-label="Word">
+                        </div>
+                        <div class="col-6  d-flex justify-content-center">
+                            <h6> Utilities</h6>
+                        </div>
+                    </div>
+                    <% for (let i=0; i < sentence.sentWords.length; i++) {%>
+                        <div class="row wordLabelPair pt-2  ">
+                            <div class="col-4 word">
+                                <span>
+                                    <%=sentence.sentWords[i][0] %>
+                                </span>
+                            </div>
+                            <div class="col-2 label">
+                                <span>
+                                    <%=sentence.sentWords[i][1] %>
+                                </span>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#Modal">Update
+                                    Word</button>
+                                <button class="btn btn-primary btn-sm " data-bs-toggle="modal"
+                                    data-bs-target="#Modal">Add
+                                    Word</button>
+                                <button class="btn btn-primary btn-sm deleteWord ">Delete Word</button>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveWord">Save changes</button>
+                        <% } %>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section>
+        <!-- Modal -->
+        <div class="modal fade" id="Modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eModalLabel">Sentence Word</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="sentWord" class="form-control" placeholder="Word"
+                                        aria-label="Word">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveWord">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
     integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">

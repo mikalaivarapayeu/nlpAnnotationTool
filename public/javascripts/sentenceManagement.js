@@ -63,23 +63,23 @@ wordSave.addEventListener('click', function (event) {
             const rowDiv = document.createElement('div');
             const spanWord = document.createElement('span');
             // Words elements
-            rowDiv.classList.add('row', 'wordLabelPair');
+            rowDiv.classList.add('row', 'wordLabelPair', 'pt-2');
             const wordDiv = document.createElement('div');
-            wordDiv.classList.add('col-5', 'word')
+            wordDiv.classList.add('col-4', 'word')
             const wordSpan = document.createElement('span');
             // Label elelemnts
             const labelDiv = document.createElement('div');
-            labelDiv.classList.add('col-3', 'label')
+            labelDiv.classList.add('col-2', 'label')
             const labelSpan = document.createElement('span');
             // Button elements
             const buttonDiv = document.createElement('div');
-            buttonDiv.classList.add('col-4')
+            buttonDiv.classList.add('col-6')
             const updateButton = document.createElement('button')
-            updateButton.classList.add('btn', 'btn-primary', 'btn-sm')
+            updateButton.classList.add('btn', 'btn-primary', 'btn-sm', 'px-1')
             const addButton = document.createElement('button')
-            addButton.classList.add('btn', 'btn-primary', 'btn-sm')
+            addButton.classList.add('btn', 'btn-primary', 'btn-sm', 'px-1')
             const deleteButton = document.createElement('button')
-            deleteButton.classList.add('btn', 'btn-primary', 'btn-sm', 'deleteWord')
+            deleteButton.classList.add('btn', 'btn-primary', 'btn-sm', 'deleteWord', 'px-1')
             // construct HTML frgament
             wordSpan.innerText = wordForm.value
             wordDiv.append(wordSpan)

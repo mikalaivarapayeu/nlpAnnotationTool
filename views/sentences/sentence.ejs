@@ -1,5 +1,5 @@
 <% layout('layout/boilerplate') %>
-    <section class="border p-2 mb-3" id="labels">
+    <section class="border-top border-bottom border-primary px-1 py-2 mb-3" id="labels">
         <div>
             <h5 class="d-inline me-3 ">Syntactic labels:</h5>
             <div class="d-inline" id="syntactic">
@@ -19,14 +19,14 @@
             </div>
         </div>
     </section>
-    <section id="mainAnnotationArea">
-        <h4>Annotation Area</h4>
-        <div class="row">
+    <section class="px-1" id="mainAnnotationArea">
+        <h5>Annotation Area</h5>
+        <div class="row border-bottom border-primary mb-2">
             <div class="col col-md-1">
                 <h6>Sentence Number</h6>
             </div>
-            <div class="col col-md-7">
-                <h6>Sentence Annotation</h6>
+            <div class="col col-md-7 d-flex justify-content-center">
+                <h6>Sentence</h6>
             </div>
             <div class="col col-md-2">
                 <h6> Semantic Tags</h6>
@@ -39,13 +39,8 @@
             </div>
         </div>
         <% for (let sent of sentences.results) {%>
-            <div class="row mb-3" id="<%=sent._id %>">
-                <div class="col col-md-1">
-                    <span>
-                        1
-                    </span>
-                </div>
-                <div class="col col-md-7">
+            <div class="row mr-2 mb-3 border-bottom border-primary sents" id="<%=sent._id %>">
+                <div class="col col-md-8 my-2 ">
                     <p class="sentPlace">
                         <% for (let i=0; i< sent.sentWords.length; i++) {%>
                             <% if( sent.sentWords[i][1]==='none' ) {%>
@@ -57,8 +52,8 @@
                                         <span class="taggedWord word" data-widx="<%=i %>">
                                             <%=sent.sentWords[i][0] %>
                                         </span>
-                                        <span>
-                                            <%= sent.sentWords[i][1] %>
+                                        <span class="taggedLabel">
+                                            <%=sent.sentWords[i][1] %>
                                         </span>
                                     </span>
                                     <% }}%>
@@ -71,13 +66,13 @@
                         <form action="sents/<%=sent._id %>?_method=DELETE" method="POST" class="d-inline">
                             <button class="btn btn-primary btn-sm ">Delete Sentence</button>
                         </form>
-                        <a class="nav-link active" href="sents/<%=sent._id %>">Sentence Details</a>
+                        <a class="nav-link active d-inline" href="sents/<%=sent._id %>">Sentence Details</a>
                     </div>
                 </div>
                 <div class="col col-md-2">
-                    <div id="semanticLabel">
+                    <div class="semanticLabel">
                         <div class="semanticTagSelection">
-                            <select name="semanticTags" id="semanticTagSelect">
+                            <select class="form-select form-select-sm" name="semanticTags">
                                 <% for (let i=0; i<labels[0].semanticLabels.length; i++) {%>
                                     <% if (labels[0].semanticLabels[i].name===sent.semanticLabel ) {%>
                                         <option value=<%=labels[0].semanticLabels[i].name %> selected>
@@ -98,9 +93,9 @@
                     </div>
                 </div>
                 <div class=" col col-md-1">
-                    <div id="extractable">
+                    <div class="extractable">
                         <div class="extractionSelection">
-                            <select name="wordExtrationBool" id="wordExtrationBool">
+                            <select class="form-select form-select-sm" name="wordExtrationBool">
                                 <% if (sent.isExtractable) {%>
                                     <option value="true" selected>Yes</option>
                                     <option value="false">No</option>
@@ -124,7 +119,7 @@
                 <div class="col col-md-1">
                     <div class="isSelfContained">
                         <div class="isSelfContainedSelection">
-                            <select name="isSelfContainedSelect" id="isSelfContainedSelect">
+                            <select class="form-select form-select-sm" name="isSelfContainedSelect">
                                 <% if (sent.isSelfContanined) {%>
                                     <option value="true" selected>Yes</option>
                                     <option value="false">No</option>
@@ -136,7 +131,7 @@
                         </div>
                         <p class="containedPlaceHolder">
                             <span>
-                                <% if ( sent. isSelfContanined) {%>
+                                <% if ( sent.isSelfContanined) {%>
                                     Yes
                                     <% } else {%>
                                         No

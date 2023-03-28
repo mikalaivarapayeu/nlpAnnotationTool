@@ -37,6 +37,7 @@ function wordTagging(e) {
     taggedWordSpan.setAttribute('data-widx', wordIdx);
     taggedWordSpan.classList.add('taggedWord', 'word');
     spanLabel.append(activeLabel.innerText);
+    spanLabel.classList.add('taggedLabel')
     spanLabelWord.append(taggedWordSpan)
     spanLabelWord.append(spanLabel)
     // spanLabelWord.setAttribute('wlbl', activeLabel.innerText)
@@ -50,18 +51,18 @@ function updateSentence() {
     const selectedRowSent = this.parentElement.parentElement.parentElement
     const updateSent = {}
     const updatedWords = []
-    const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] #semanticLabel .semTagPlaceHolder span`)
-    const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] #extractable .extractablePlaceHolder span`)
-    const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] #isSelfContained .containedPlaceHolder span`)
+    const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] .semanticLabel .semTagPlaceHolder span`)
+    const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] .extractable .extractablePlaceHolder span`)
+    const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] .isSelfContained .containedPlaceHolder span`)
     const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .word`)
     updateSent.sentNumber = selectedRowSent.id
     updateSent.semanticLabel = semanticLabel.innerText
-    if (extractable === 'Yes') {
+    if (extractable.innerText === 'Yes') {
         updateSent.isExtractable = true
     } else {
         updateSent.isExtractable = false
     }
-    if (selfContained === 'Yes') {
+    if (selfContained.innerText === 'Yes') {
         updateSent.isSelfContanined = true
     } else {
         updateSent.isSelfContanined = false
@@ -81,7 +82,7 @@ function updateSentence() {
         }
         updatedWords.push(wordIndexPair)
     }
-
+    console.log(updateSent)
     updateSent.updatedWordsAndIndx = updatedWords
     axios({
         method: 'post',
@@ -89,9 +90,9 @@ function updateSentence() {
         data: {
             data: updateSent
         }
-    });
-    console.log(updateSent)
-}
+    })
+
+};
 
 
 function semanticTagSelection(e) {
@@ -105,7 +106,7 @@ function semanticTagSelection(e) {
 function booleanSelection(e) {
     const newSelectedTag = this;
     const currentTag = this.parentElement.parentElement.children[1].children[0]
-    console.log(currentTag.innerText)
+    // console.log(currentTag.innerText)
     if (newSelectedTag.value === 'true') {
         currentTag.innerText = 'Yes';
     } else {

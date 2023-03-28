@@ -1,20 +1,41 @@
 .activeLabel {
-    border: 2px solid rgb(56, 211, 242);
-    background-color: rgb(193, 16, 242);
-    color: white;
+    background-color: rgb(63, 196, 237);
+    color: black;
+    text-transform: uppercase;
     padding: 3px 10px;
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 .taggedSpan {
-    border: 2px solid rgb(24, 188, 133);
-    background-color: rgb(8, 169, 158);
+    /* border: 2px solid rgb(52, 190, 144); */
+    background-color: rgb(63, 196, 237);
     color: white;
     padding: 3px 5px;
     margin: 3px;
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 .links {
     text-decoration: none;
+}
+
+.taggedWord {
+    color: black;
+}
+
+.taggedLabel {
+    color: white;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-left: 6px;
+    margin-right: 3x;
+}
+
+.sentPlace {
+    line-height: 2.2;
+
+}
+
+.sents {
+    font-size: 0.95em;
 }

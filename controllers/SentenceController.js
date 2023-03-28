@@ -14,7 +14,7 @@ module.exports.index = async (req, res) => {
         // console.log(sentPag);
         // const sentences = await Sentence.find({})
         const labels = await Label.find({})
-        // console.log(sentences.results[0]);
+        console.log(sentences.results[0]);
         res.render('sentences/sentence', { labels, sentences, page })
     } catch {
         console.log(error)
@@ -29,7 +29,7 @@ module.exports.duplicateSentence = async (req, res) => {
         const sent = await Sentence.findById(id)
         const newSent = new Sentence({
             sentNumber: sent.sentNumber,
-            semanticLabel: sent.labelName,
+            semanticLabel: sent.semanticLabel,
             isExtractable: sent.isExtractable,
             isSelfContanined: sent.isSelfContanined,
             sentWords: sent.sentWords

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const sentenceSchema = new Schema({
+    sentNumber: Number,
     semanticLabel: String,
     isExtractable: Boolean,
     isSelfContanined: Boolean,

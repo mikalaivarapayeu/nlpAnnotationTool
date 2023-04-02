@@ -42,29 +42,30 @@
             <div class="row mr-2 mb-3 border-bottom border-primary sents" id="<%=sent._id %>">
                 <div class="col col-md-8 my-2 ">
                     <p class="sentPlace">
-                        <% for (let i=0; i< sent.sentWords.length; i++) {%>
-                            <% if( sent.sentWords[i][1]==='none' ) {%>
-                                <span data-widx="<%=i %>" class="word">
-                                    <%= sent.sentWords[i][0] %>
-                                </span>
-                                <% } else {%>
-                                    <span class="taggedSpan">
-                                        <span class="taggedWord word" data-widx="<%=i %>">
-                                            <%=sent.sentWords[i][0] %>
-                                        </span>
-                                        <span class="taggedLabel">
-                                            <%=sent.sentWords[i][1] %>
-                                        </span>
+                        <%=sent.sentNumber %>
+                            <% for (let i=0; i< sent.sentWords.length; i++) {%>
+                                <% if( sent.sentWords[i][1]==='none' ) {%>
+                                    <span data-widx="<%=i %>" class="word">
+                                        <%= sent.sentWords[i][0] %>
                                     </span>
-                                    <% }}%>
+                                    <% } else {%>
+                                        <span class="taggedSpan">
+                                            <span class="taggedWord word" data-widx="<%=i %>">
+                                                <%=sent.sentWords[i][0] %>
+                                            </span>
+                                            <span class="taggedLabel">
+                                                <%=sent.sentWords[i][1] %>
+                                            </span>
+                                        </span>
+                                        <% }}%>
                     </p>
                     <div>
-                        <button class="btn btn-primary btn-sm updateSentence">Update Annotation</button>
-                        <form action="sents/duplicate/<%=sent._id %>" class="d-inline">
-                            <button class="btn btn-primary btn-sm ">Duplicate Sentence</button>
-                        </form>
-                        <form action="sents/<%=sent._id %>?_method=DELETE" method="POST" class="d-inline">
-                            <button class="btn btn-primary btn-sm ">Delete Sentence</button>
+                        <button class="btn btn-link btn-sm updateSentence">Update Annotation</button>
+                        <a class="nav-link  d-inline" href="sents/duplicate/<%=sent._id %>?page=<%=page %>">Duplicate
+                            Sentence</a>
+                        <form action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>" method="POST"
+                            class="d-inline">
+                            <button class="btn btn-link btn-sm ">Delete Sentence</button>
                         </form>
                         <a class="nav-link active d-inline" href="sents/<%=sent._id %>">Sentence Details</a>
                     </div>
@@ -148,11 +149,11 @@
             <ul class="pagination">
                 <% if (page> 1) { %>
                     <li class="page-item"><a class="page-link" href="/sents?page=<%=page-1 %>">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="/sents?page=<%=page %>">
+                    <li class="page-item active"><a class="page-link" href="/sents?page=<%=page %>">
                             <%=page%>
                         </a></li>
                     <% } else { %>
-                        <li class="page-item"><a class="page-link" href="/sents?page=<%=page %>">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="/sents?page=<%=page %>">1</a></li>
 
                         <% } %>
                             <li class="page-item"><a class="page-link" href="/sents?page=<%=page+1 %>">

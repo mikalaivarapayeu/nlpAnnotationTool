@@ -14,7 +14,8 @@ module.exports.index = async (req, res) => {
         // console.log(sentPag);
         // const sentences = await Sentence.find({})
         const labels = await Label.find({})
-        console.log(sentences.results[0]);
+        // console.log('############');
+        // console.log(req);
         res.render('sentences/sentence', { labels, sentences, page })
     } catch {
         console.log(error)
@@ -25,6 +26,7 @@ module.exports.index = async (req, res) => {
 
 module.exports.duplicateSentence = async (req, res) => {
     try {
+        const page = parseInt(req.query.page)
         const { id } = req.params;
         const sent = await Sentence.findById(id)
         const newSent = new Sentence({
@@ -34,9 +36,10 @@ module.exports.duplicateSentence = async (req, res) => {
             isSelfContanined: sent.isSelfContanined,
             sentWords: sent.sentWords
         })
-        // console.log(newSent)
+        // console.log(`/sents?page=${page}`)
         await newSent.save();
-        res.redirect('/sents?page=1')
+        // res.redirect(`/sents?page=${page}`)
+        res.redirect(`/sents?page=${page}`)
     } catch {
         console.log(error)
     }
@@ -73,11 +76,12 @@ module.exports.updateSingleSentence = async (req, res) => {
 
 module.exports.deleteSingleSentence = async (req, res) => {
     try {
+        const page = parseInt(req.query.page)
         const { id } = req.params;
         const labels = await Sentence.findByIdAndDelete(id)
-        // console.log(labels.semanticLabels);
+        // console.log(page);
 
-        res.redirect('/sents?page=1')
+        res.redirect(`/sents?page=${page}`)
     } catch {
         console.log(error)
     }

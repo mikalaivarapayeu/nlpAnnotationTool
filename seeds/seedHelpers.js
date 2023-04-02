@@ -2,6 +2,7 @@ module.exports.corpus = {
     name: 'rUTIProbiotics',
     sentences: [
         {
+            sentNumber: 1,
             labelName: 'studyDesign',
             isExtractable: true,
             isSelfContanined: true,
@@ -13,6 +14,7 @@ module.exports.corpus = {
 
         },
         {
+            sentNumber: 2,
             labelName: 'subjectDescription',
             isExtractable: true,
             isSelfContanined: true,
@@ -28,6 +30,7 @@ module.exports.corpus = {
 
         },
         {
+            sentNumber: 2,
             labelName: 'recruitmentDetails',
             isExtractable: true,
             isSelfContanined: true,
@@ -41,6 +44,49 @@ module.exports.corpus = {
 
             ]
 
+        },
+        {
+            sentNumber: 3,
+            labelName: 'randomDescription',
+            isExtractable: true,
+            isSelfContanined: true,
+            words: [
+                ['The', 'none'], ['study', 'none'], ['participants', 'none'], ['were', 'none'], ['randomly', 'none'], ['assigned', 'none'],
+                ['to', 'none'], ['Lactin-V', 'none'], ['or', 'none'], ['placebo', 'none'], ['by', 'none'], ['use', 'none'], ['of', 'rborder'],
+                ['a', 'none'], ['computer-generated', 'none'], ['randomized', 'none'], ['number', 'none'],
+                ['system', 'none'], ['in', 'none'], ['blocked', 'none'], ['assignments', 'none'], ['to', 'endborder'], ['achieve', 'none'],
+                ['equal', 'none'], ['sample', 'none'], ['sizes', 'none'], ['in', 'none'], ['both', 'none'], ['groups', 'none'], ['.', 'none']
+
+            ]
+
+        },
+        {
+            sentNumber: 3,
+            labelName: 'interventionName',
+            isExtractable: true,
+            isSelfContanined: true,
+            words: [
+                ['The', 'none'], ['study', 'none'], ['participants', 'none'], ['were', 'none'], ['randomly', 'none'], ['assigned', 'none'],
+                ['to', 'rborder'], ['Lactin-V', 'none'], ['or', 'none'], ['placebo', 'none'], ['by', 'endborder'], ['use', 'none'], ['of', 'none'],
+                ['a', 'none'], ['computer-generated', 'none'], ['randomized', 'none'], ['number', 'none'],
+                ['system', 'none'], ['in', 'none'], ['blocked', 'none'], ['assignments', 'none'], ['to', 'none'], ['achieve', 'none'],
+                ['equal', 'none'], ['sample', 'none'], ['sizes', 'none'], ['in', 'none'], ['both', 'none'], ['groups', 'none'], ['.', 'none']
+
+            ]
+
+        },
+        {
+            sentNumber: 4,
+            labelName: 'blinding',
+            isExtractable: true,
+            isSelfContanined: true,
+            words: [
+                ['The', 'none'], ['assigned', 'none'], ['intervention', 'none'], ['substance', 'none'], ['(', 'none'], ['Lactin-V', 'none'],
+                ['or', 'none'], ['placebo-V', 'none'], [')', 'none'], ['was', 'none'], ['packaged', 'none'], ['in', 'rborder'], ['identically', 'none'],
+                ['appearing', 'none'], ['packets', 'none'], ['according', 'none'], ['to', 'none'],
+                ['assignment', 'none'], ['and', 'none'], ['sequential', 'none'], ['study', 'none'], ['number', 'none'], ['.', 'none']
+            ]
+
         }
     ]
 };
@@ -48,6 +94,7 @@ module.exports.corpus = {
 
 module.exports.labelSet = {
     labeSetName: 'clinicalTrials',
-    semanticLabels: [{ name: 'studyDesign' }, { name: 'aimOfStudy' }, { name: 'subjectDescription' }, { name: 'recruitmentDetails' }, { name: 'nonSpeicific' }],
+    semanticLabels: [{ name: 'studyDesign' }, { name: 'aimOfStudy' }, { name: 'subjectDescription' }, { name: 'recruitmentDetails' },
+    { name: 'nonSpeicific' }, { name: 'randomDescription' }, { name: 'interventionName' }, { name: 'blinding' }],
     phraseLabels: [{ name: 'rborder' }, { name: 'lborder' }, { name: 'endborder' }, { name: 'startborder' }]
 }

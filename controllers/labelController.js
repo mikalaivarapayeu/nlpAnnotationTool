@@ -14,6 +14,7 @@ module.exports.index = async (req, res) => {
 module.exports.newSemanticTag = async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(req.params)
         const labels = await Label.findById(id)
         const { label } = req.body;
         // console.log(labels.semanticLabels);

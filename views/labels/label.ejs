@@ -1,84 +1,83 @@
 <% layout('layout/boilerplate') %>
     <section class="m-2 border-bottom  border-success">
-        <h2 class="text-center"> NLP tags Info</h2>
+        <h3 class="text-center">NLP tags Info</h3>
         <div class="border-top  border-success  py-3">
             <div>
-                <h4> Tag set name: <%= labels[0].labelSetName %>
-                </h4>
+                <p> <span class="">Tag set name:</span> <span class="lead">
+                        <%= labels[0].labelSetName %>
+                    </span>
+                </p>
             </div>
         </div>
     </section>
     <section>
         <div class="row">
             <div class="col-6" id="semanticTags">
-                <h3>Semantic Tags</h3>
+                <h5>Semantic Tags</h5>
                 <div class="mb-3">
                     <form action="/labels/<%=labels[0]._id%>/semantic" method="POST">
-                        <div class="row g-3">
-                            <div class="col text-end">
-                                <label class="align-middle" for="semTags" class="form-label">Add Semantic Tag</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="semTags" placeholder="New Semantic Tag"
-                                    name="label[name]">
-                            </div>
-                            <div class="col ">
-                                <button type="submit" class="btn btn-success btn-sm">Add New
-                                    Tag</button>
-                            </div>
+                        <div class="d-flex flex-row"">
+                            <div>
+                                <label class=" align-middle" for="semTags" class="form-label">Add Semantic Tag:</label>
                         </div>
-                    </form>
-                </div>
-                <ul>
-                    <% for (let label of labels[0]. semanticLabels) {%>
-                        <li>
-                            <span>
-                                <%= label.name%>
-                            </span>
-                            <form class="d-inline" action="/labels/<%=labels[0]._id%>/semantic?_method=DELETE"
-                                method="POST">
-                                <input type="hidden" id="postId" name="label[name]" value=<%=label.name%> />
-                                <button type="submit" class="btn btn-link">DeleteTag</button>
-                            </form>
-                        </li>
-                        <% }%>
-                </ul>
-
-            </div>
-            <div class="col-6" id="syntacticTags">
-                <h3>Phrase Tags</h3>
-                <div class="mb-3">
-                    <form action="/labels/<%=labels[0]._id%>/syntactic" method="POST">
-                        <div class="row g-3">
-                            <div class="col text-end">
-                                <label class="align-middle" for="synTag" class="form-label d-inline">Add Phrase
-                                    Tag</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" id="synTag" placeholder="New Phrase Tag"
-                                    name="label[name]">
-                            </div>
-                            <div class="col">
-                                <button type="submit" class="btn btn-success btn-sm ">Add New Tag</button>
-                            </div>
+                        <div class="mx-3">
+                            <input type="text" class="form-control" id="semTags" placeholder="New Semantic Tag"
+                                name="label[name]">
                         </div>
-                    </form>
+                        <div>
+                            <button type="submit" class="btn btn-outline-success">Add New
+                                Tag</button>
+                        </div>
                 </div>
-                <ul>
-                    <% for (let label of labels[0].phraseLabels) {%>
-                        <li>
-                            <span>
-                                <%= label.name%>
-                            </span>
-                            <form class="d-inline" action="/labels/<%=labels[0]._id%>/syntactic?_method=DELETE"
-                                method="POST">
-                                <input type="hidden" id="postId" name="label[name]" value=<%=label.name%> />
-                                <button type="submit" class="btn btn-link">DeleteTag</button>
-                            </form>
-                        </li>
-                        <% }%>
-                </ul>
-
+                </form>
             </div>
+            <ul class="col-6 list-group mb-3">
+                <% for (let label of labels[0]. semanticLabels) {%>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <%= label.name%>
+                        </span>
+                        <form class="d-inline" action="/labels/<%=labels[0]._id%>/semantic?_method=DELETE"
+                            method="POST">
+                            <input type="hidden" id="postId" name="label[name]" value=<%=label.name%> />
+                            <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>
+                        </form>
+                    </li>
+                    <% }%>
+            </ul>
+
+        </div>
+        <div class="col-6" id="syntacticTags">
+            <h5>Phrase Tags</h5>
+            <div class="mb-3">
+                <form action="/labels/<%=labels[0]._id%>/syntactic" method="POST">
+                    <div class="d-flex flex-row">
+                        <div>
+                            <label class="align-middle" for="synTag" class="form-label d-inline">Add Phrase
+                                Tag:</label>
+                        </div>
+                        <div class="mx-3"> <input type="text" class="form-control" id="synTag"
+                                placeholder="New Phrase Tag" name="label[name]">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-outline-success">Add New Tag</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ul class="col-6 list-group mb-3">
+                <% for (let label of labels[0].phraseLabels) {%>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <%= label.name%>
+                        </span>
+                        <form class="d-inline" action="/labels/<%=labels[0]._id%>/syntactic?_method=DELETE"
+                            method="POST">
+                            <input type="hidden" name="label[name]" value=<%=label.name%> />
+                            <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>
+                        </form>
+                    </li>
+                    <% }%>
+            </ul>
         </div>
     </section>

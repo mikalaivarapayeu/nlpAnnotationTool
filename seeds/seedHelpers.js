@@ -93,7 +93,7 @@ module.exports.corpus = {
 
 
 module.exports.labelSet = {
-    labeSetName: 'clinicalTrials',
+    labelSetName: 'clinicalTrials',
     semanticLabels: [{ name: 'studyDesign' }, { name: 'aimOfStudy' }, { name: 'subjectDescription' }, { name: 'recruitmentDetails' },
     { name: 'nonSpeicific' }, { name: 'randomDescription' }, { name: 'interventionName' }, { name: 'blinding' }],
     phraseLabels: [{ name: 'rborder' }, { name: 'lborder' }, { name: 'endborder' }, { name: 'startborder' }]

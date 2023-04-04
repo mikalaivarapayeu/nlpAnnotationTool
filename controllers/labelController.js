@@ -5,6 +5,7 @@ module.exports.index = async (req, res) => {
     try {
         const labels = await Label.find({});
         res.render('labels/label', { labels })
+        // console.log(labels)
     } catch {
         console.log(error)
     }

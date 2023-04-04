@@ -19,6 +19,10 @@
     text-decoration: none;
 }
 
+.btn-link {
+    text-decoration: none;
+}
+
 .taggedWord {
     color: black;
 }
@@ -38,4 +42,20 @@
 
 .sents {
     font-size: 0.95em;
+}
+
+.sentAnnotNav button,
+.sentAnnotNav a {
+    font-size: 0.75em;
+    text-decoration: none;
+
+}
+
+.sentAnnotNav a {
+    padding: 3px 5px;
+}
+
+.sentAnnotNav button {
+    padding: 2px 5px;
+
 }

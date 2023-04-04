@@ -13,7 +13,7 @@ db.once('open', () => {
 const seedCorpusDB = async () => {
     await Label.deleteMany({});
     const labelSetInstance = new Label({
-        labelName: labelSet.labeSetName,
+        labelSetName: labelSet.labelSetName,
         semanticLabels: labelSet.semanticLabels,
         phraseLabels: labelSet.phraseLabels
 

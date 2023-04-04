@@ -59,15 +59,17 @@
                                         </span>
                                         <% }}%>
                     </p>
-                    <div>
-                        <button class="btn btn-link btn-sm updateSentence">Update Annotation</button>
-                        <a class="nav-link  d-inline" href="sents/duplicate/<%=sent._id %>?page=<%=page %>">Duplicate
+                    <div class="sentAnnotNav">
+                        <button class="btn btn-primary updateSentence">Update Annotation</button>
+                        <a class=" btn btn-primary d-inline "
+                            href="sents/duplicate/<%=sent._id %>?page=<%=page %>">Duplicate
                             Sentence</a>
+                        <a class="btn btn-primary d-inline" href="sents/<%=sent._id %>">Sentence
+                            Details</a>
                         <form action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>" method="POST"
                             class="d-inline">
-                            <button class="btn btn-link btn-sm ">Delete Sentence</button>
+                            <button class="btn btn-primary">Delete Sentence</button>
                         </form>
-                        <a class="nav-link active d-inline" href="sents/<%=sent._id %>">Sentence Details</a>
                     </div>
                 </div>
                 <div class="col col-md-2">

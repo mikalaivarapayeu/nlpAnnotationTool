@@ -8,21 +8,28 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 
+
 const ExpressError = require('./utils/expressErrors');
 const labelRoutes = require('./routes/labelRoutes');
-const sentsRoutes = require('./routes/sentencesRoutes');
+// const sentsRoutes = require('./routes/sentencesRoutes');
 const Label = require('./models/nlpLabels');
 const Sentence = require('./models/sentence');
-const paginate = require('./utils/pagination')
+const paginate = require('./utils/pagination');
+const { connect } = require('./db');
 
 
-mongoose.connect('mongodb://localhost:27017/clinicalTrialCorpus_v1');
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-    console.log("Database connected");
-});
+app.listen(3000, () => {
+    console.log('Serving on Port 3000')
+})
+
+// // mongoose.connect('mongodb://localhost:27017/clinicalTrialCorpus_v1');
+
+// // const db = mongoose.connection;
+// // db.on("error", console.error.bind(console, "connection error:"));
+// // db.once("open", () => {
+// //     console.log("Database connected");
+// // });
 
 
 
@@ -45,17 +52,22 @@ app.use((req, res, next) => {
     next();
 })
 
-app.listen(3000, () => {
-    console.log('Serving on Port 3000')
-})
+// // app.listen(3000, () => {
+// //     console.log('Serving on Port 3000')
+// // })
 
-app.get('/', (req, res) => {
-    res.render('home')
+app.get('/', async (req, res) => {
+    const collections = [];
+    const db = await connect();
+    await db.listCollections().forEach(collection => {
+        collections.push(collection["name"])
+    })
+    res.render('home', { collections })
 });
 
 
 app.use('/labels', labelRoutes);
-app.use('/sents', sentsRoutes);
+// app.use('/sents', sentsRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))

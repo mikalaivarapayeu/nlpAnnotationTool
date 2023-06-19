@@ -1,13 +1,27 @@
-const Sentence = require('../models/sentence');
-const Label = require('../models/nlpLabels');
+// const Sentence = require('../models/sentence');
+// const Label = require('../models/nlpLabels');
 // const paginate = require('../utils/pagination')
+const { connectToDb, getDb } = require('./db');
+
+let db;
+
+connectToDb((err) => {
+    if (!err) {
+        app.listen(3000, () => {
+            console.log('Serving on Port 3000')
+        })
+    }
+
+    db = getDb()
+})
 
 
 
 module.exports.index = async (req, res) => {
     try {
-        const page = parseInt(req.query.page);
-        const sentences = res.paginatedResults;
+        const name = req.query.name
+        // const page = parseInt(req.query.page);
+        // const sentences = res.paginatedResults;
         // const totalNum = await Sentence.countDocuments().exec()
         // console.log(totalNum)
         // console.log('############')

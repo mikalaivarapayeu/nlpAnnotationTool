@@ -15,16 +15,30 @@
     <div class="container-fluid my-3">
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" aria-current="page" href="#">Create Label Set</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="/sents?page=1">Annotation Area</a>
             </li>
             <li class="nav-item">
-        </ul>
+        </ul> -->
     </div>
     <div class="h-100 d-flex align-items-center justify-content-center">
-        <h1> Welcome to App</h1>
+        <h1> Welcome to Annotation Application</h1>
+    </div>
+    <div>
+        <h5>The name of sentece and label collections</h5>
+    </div>
+    <div>
+        <ul class="list-group list-group-flush">
+            <% for (let i=0; i<collections.length; i++) {%>
+                <li class="list-group-item">
+                    <a href="/sents?name=<%= collections[i] %>">
+                        <%= collections[i] %>
+                    </a>
+                </li>
+                <% } %>
+        </ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"

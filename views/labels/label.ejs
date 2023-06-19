@@ -15,7 +15,7 @@
             <div class="col-6" id="semanticTags">
                 <h5>Semantic Tags</h5>
                 <div class="mb-3">
-                    <form action="/labels/<%=labels[0]._id%>/semantic" method="POST">
+                    <form action="/labels/<%=labels[0]._id%>?tagname=semanticLabels" method="POST">
                         <div class="d-flex flex-row"">
                             <div>
                                 <label class=" align-middle" for="semTags" class="form-label">Add Semantic Tag:</label>
@@ -37,7 +37,7 @@
                         <span>
                             <%= label.name%>
                         </span>
-                        <form class="d-inline" action="/labels/<%=labels[0]._id%>/semantic?_method=DELETE"
+                        <form class="d-inline" action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=semanticLabels"
                             method="POST">
                             <input type="hidden" id="postId" name="label[name]" value=<%=label.name%> />
                             <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>
@@ -50,7 +50,7 @@
         <div class="col-6" id="syntacticTags">
             <h5>Phrase Tags</h5>
             <div class="mb-3">
-                <form action="/labels/<%=labels[0]._id%>/syntactic" method="POST">
+                <form action="/labels/<%=labels[0]._id%>?tagname=phraseLabels" method="POST">
                     <div class="d-flex flex-row">
                         <div>
                             <label class="align-middle" for="synTag" class="form-label d-inline">Add Phrase
@@ -71,7 +71,7 @@
                         <span>
                             <%= label.name%>
                         </span>
-                        <form class="d-inline" action="/labels/<%=labels[0]._id%>/syntactic?_method=DELETE"
+                        <form class="d-inline" action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=phraseLabels"
                             method="POST">
                             <input type="hidden" name="label[name]" value=<%=label.name%> />
                             <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>

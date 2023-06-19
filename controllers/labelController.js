@@ -1,29 +1,36 @@
 const Label = require('../models/nlpLabels');
+const { connect } = require('../db');
+const { ObjectId } = require('mongodb');
 
 
 module.exports.index = async (req, res) => {
     try {
-        const labels = await Label.find({});
+        const db = await connect();
+        const labels = await db.collection('labels').find().toArray();
         res.render('labels/label', { labels })
-        // console.log(labels)
     } catch {
         console.log(error)
     }
 }
 
 
-module.exports.newSemanticTag = async (req, res) => {
+module.exports.newTag = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(req.params)
-        const labels = await Label.findById(id)
+        const tagName = req.query.tagname
         const { label } = req.body;
-        // console.log(labels.semanticLabels);
         if (label.name !== '') {
-            labels.semanticLabels.push({ 'name': label.name });
-            await labels.save();
+            const update = { $push: { [tagName]: { name: label.name } } };
+            console.log(update)
+            // const options = { upsert: true };
+            const db = await connect();
+            const oid = new ObjectId(id)
+            const filter = { _id: oid };
+            await db.collection('labels').findOneAndUpdate(filter, update);
+            // await db.collection('labels').semanticLabels.push({ 'name': label.name });
+            // await labels.save();
+            req.flash('success', 'Successfully add a new tag.')
         }
-        req.flash('success', 'Successfully add a new tag.')
         res.redirect(`/labels/{id}`)
     } catch {
         console.log(error)
@@ -31,47 +38,25 @@ module.exports.newSemanticTag = async (req, res) => {
 }
 
 
-module.exports.newSyntacticTag = async (req, res) => {
+
+
+
+module.exports.deleteTag = async (req, res) => {
     try {
         const { id } = req.params;
-        const labels = await Label.findById(id)
+        const tagName = req.query.tagname
         const { label } = req.body;
-        // console.log(labels);
         if (label.name !== '') {
-            labels.phraseLabels.push({ 'name': label.name });
-            await labels.save();
+            const update = { $pull: { [tagName]: { name: label.name } } };
+            // const options = { upsert: true };
+            const db = await connect();
+            const oid = new ObjectId(id)
+            const filter = { _id: oid };
+            await db.collection('labels').findOneAndUpdate(filter, update);
+            // await db.collection('labels').semanticLabels.push({ 'name': label.name });
+            // await labels.save();
+            req.flash('success', 'The tag has been successfully deleted.')
         }
-        req.flash('success', 'Successfully add a new tag.')
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-}
-
-
-module.exports.deleteSemanticTag = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        labels.semanticLabels.pull({ 'name': label.name });
-        await labels.save();
-        // console.log(labels.semanticLabels);
-
-        res.redirect(`/labels/{id}`)
-    } catch {
-        console.log(error)
-    }
-}
-
-module.exports.deleteSyntacticTag = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const labels = await Label.findById(id)
-        const { label } = req.body;
-        labels.phraseLabels.pull({ 'name': label.name });
-        await labels.save();
-        // console.log(labels.semanticLabels);
         res.redirect(`/labels/{id}`)
     } catch {
         console.log(error)

@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 
 const ExpressError = require('./utils/expressErrors');
 const labelRoutes = require('./routes/labelRoutes');
-// const sentsRoutes = require('./routes/sentencesRoutes');
+const sentsRoutes = require('./routes/sentencesRoutes');
 const Label = require('./models/nlpLabels');
 const Sentence = require('./models/sentence');
 const paginate = require('./utils/pagination');
@@ -67,7 +67,7 @@ app.get('/', async (req, res) => {
 
 
 app.use('/labels', labelRoutes);
-// app.use('/sents', sentsRoutes);
+app.use('/sents', sentsRoutes);
 
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))

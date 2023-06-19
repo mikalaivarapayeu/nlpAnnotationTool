@@ -1,4 +1,6 @@
-module.exports = function paginatedResults(model) {
+const { connect } = require('../db');
+
+module.exports = function paginatedResults() {
     return async (req, res, next) => {
         const page = parseInt(req.query.page)
         // const limit = parseInt(req.query.limit)
@@ -6,8 +8,10 @@ module.exports = function paginatedResults(model) {
         const startIndex = (page - 1) * limit
         const endIndex = (page + 3) * limit
         const results = {}
+        const db = await connect();
 
-        if (endIndex < await model.countDocuments().exec()) {
+
+        if (endIndex < await db.collection('sentences').countDocuments()) {
             results.next = {
                 page: page + 3,
                 limit: limit
@@ -21,7 +25,7 @@ module.exports = function paginatedResults(model) {
             }
         }
         try {
-            results.results = await model.find().sort({ 'sentNumber': 1 }).limit(limit).skip(startIndex).exec()
+            results.results = await db.collection('sentences').find().sort({ 'sentNumber': 1 }).limit(limit).skip(startIndex).toArray()
             res.paginatedResults = results
             next()
         } catch (e) {

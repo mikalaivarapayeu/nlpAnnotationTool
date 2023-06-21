@@ -1,6 +1,5 @@
-const Label = require('../models/nlpLabels');
-const { connect } = require('../db');
-const { ObjectId } = require('mongodb');
+const { connect, createObjectIdFilter } = require('../db');
+
 
 
 module.exports.index = async (req, res) => {
@@ -24,11 +23,8 @@ module.exports.newTag = async (req, res) => {
             console.log(update)
             // const options = { upsert: true };
             const db = await connect();
-            const oid = new ObjectId(id)
-            const filter = { _id: oid };
+            const filter = await createObjectIdFilter(id);
             await db.collection('labels').findOneAndUpdate(filter, update);
-            // await db.collection('labels').semanticLabels.push({ 'name': label.name });
-            // await labels.save();
             req.flash('success', 'Successfully add a new tag.')
         }
         res.redirect(`/labels/{id}`)
@@ -50,11 +46,8 @@ module.exports.deleteTag = async (req, res) => {
             const update = { $pull: { [tagName]: { name: label.name } } };
             // const options = { upsert: true };
             const db = await connect();
-            const oid = new ObjectId(id)
-            const filter = { _id: oid };
+            const filter = await createObjectIdFilter(id);
             await db.collection('labels').findOneAndUpdate(filter, update);
-            // await db.collection('labels').semanticLabels.push({ 'name': label.name });
-            // await labels.save();
             req.flash('success', 'The tag has been successfully deleted.')
         }
         res.redirect(`/labels/{id}`)

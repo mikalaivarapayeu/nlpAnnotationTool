@@ -1,4 +1,6 @@
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
+
 
 const url = 'mongodb://localhost:27017/clinicalTrialCorpus_v1'
 
@@ -16,12 +18,15 @@ async function connect() {
     }
 }
 
-// async function getDb() {
-//     db = connect()
-//     return db;
-// }
 
-module.exports = { connect };
+async function createObjectIdFilter(id) {
+    const objId = new ObjectId(id)
+    const filterObj = { _id: objId };
+    return filterObj
+}
+
+
+module.exports = { connect, createObjectIdFilter };
 
 
 

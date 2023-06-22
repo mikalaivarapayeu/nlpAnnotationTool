@@ -150,22 +150,28 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <% if (page> 1) { %>
-                    <li class="page-item"><a class="page-link" href="/sents?page=<%=page-1 %>">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="/sents?page=<%=page %>">
+                    <li class="page-item"><a class="page-link"
+                            href="/sents?page=<%=page-1 %>&name=<%= collection %>">Previous</a></li>
+                    <li class="page-item active"><a class="page-link"
+                            href="/sents?page=<%=page %>&name=<%= collection %>">
                             <%=page%>
                         </a></li>
                     <% } else { %>
-                        <li class="page-item active"><a class="page-link" href="/sents?page=<%=page %>">1</a></li>
+                        <li class="page-item active"><a class="page-link"
+                                href="/sents?page=<%=page %>&name=<%= collection %>">1</a></li>
 
                         <% } %>
-                            <li class="page-item"><a class="page-link" href="/sents?page=<%=page+1 %>">
+                            <li class="page-item"><a class="page-link"
+                                    href="/sents?page=<%=page+1 %>&name=<%= collection %>">
                                     <%=page+1%>
                                 </a></li>
-                            <li class="page-item"><a class="page-link" href="/sents?page=<%=page+2 %>">
+                            <li class="page-item"><a class="page-link"
+                                    href="/sents?page=<%=page+2 %>&name=<%= collection %>">
                                     <%=page+2%>
                                 </a></li>
                             <% if (sentences.next) { %>
-                                <li class="page-item"><a class="page-link" href="/sents?page=<%=page+3 %>">Next</a></li>
+                                <li class="page-item"><a class="page-link"
+                                        href="/sents?page=<%=page+3 %>&name=<%= collection %>">Next</a></li>
                                 <% } %>
 
             </ul>

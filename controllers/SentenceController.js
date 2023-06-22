@@ -9,7 +9,8 @@ module.exports.index = async (req, res) => {
         const db = await connect();
         const labels = await db.collection('labels').find().toArray();
         const sentences = res.paginatedResults;
-        res.render('sentences/sentence', { labels, sentences, page })
+        collection = req.query.name
+        res.render('sentences/sentence', { labels, sentences, page, collection })
     } catch {
         console.log(error)
     }
@@ -57,7 +58,6 @@ module.exports.updateSingleSentence = async (req, res) => {
                 sentWords: sentWordsUpdate
             }
         }
-        console.log(update)
         await db.collection('sentences').updateOne(filter, update);
         // req.flash('success', 'Successfully updated the sentence.')
         res.redirect(`/sents?page=${page}`)
@@ -89,7 +89,6 @@ module.exports.sentenceDetails = async (req, res) => {
         const page = parseInt(req.query.page);
         const db = await connect();
         const filter = await createObjectIdFilter(id);
-        console.log(req.query)
         const sentence = await db.collection('sentences',).findOne(filter);
         res.render('sentences/sentenceDetails', { sentence, page })
     } catch {
@@ -110,7 +109,6 @@ module.exports.updateSentWords = async (req, res) => {
         }
         await db.collection('sentences').updateOne(filter, update);
         const sentence = await db.collection('sentences').findOne(filter);
-        console.log(sentence)
         // res.redirect('sentences/sentenceDetails', { sentence })
     } catch {
         console.log(error)

@@ -62,12 +62,13 @@
                     <div class="sentAnnotNav">
                         <button class="btn btn-primary updateSentence">Update Annotation</button>
                         <a class=" btn btn-primary d-inline "
-                            href="sents/duplicate/<%=sent._id %>?page=<%=page %>">Duplicate
+                            href="sents/duplicate/<%=sent._id %>?page=<%=page %>&name=<%= collection %>">Duplicate
                             Sentence</a>
-                        <a class="btn btn-primary d-inline" href="sents/<%=sent._id %>?page=<%=page %>">Sentence
+                        <a class="btn btn-primary d-inline"
+                            href="sents/<%=sent._id %>?page=<%=page %>&name=<%= collection %>">Sentence
                             Details</a>
-                        <form action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>" method="POST"
-                            class="d-inline">
+                        <form action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>&name=<%= collection %>"
+                            method="POST" class="d-inline">
                             <button class="btn btn-danger position-absolute start-50">Delete Sentence</button>
                         </form>
                     </div>
@@ -150,6 +151,9 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <% if (page> 1) { %>
+                    <li class="page-item"><a class="page-link" href="/sents?page=1&name=<%= collection %>">Start
+                            Page</a>
+                    </li>
                     <li class="page-item"><a class="page-link"
                             href="/sents?page=<%=page-1 %>&name=<%= collection %>">Previous</a></li>
                     <li class="page-item active"><a class="page-link"
@@ -177,5 +181,6 @@
             </ul>
         </nav>
     </section>
+    <script> const collname = "<%= collection %>"</script>
     <script src=" https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/javascripts/annotation.js"></script>

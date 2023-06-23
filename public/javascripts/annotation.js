@@ -5,6 +5,7 @@ const taggedWords = document.querySelectorAll('.taggedSpan');
 const semanticTags = document.querySelectorAll('.semanticTagSelection select')
 const theSelfContained = document.querySelectorAll('.isSelfContainedSelection select')
 const theExtractable = document.querySelectorAll('.extractionSelection select')
+
 // console.log(semanticTags)
 
 
@@ -86,7 +87,7 @@ function updateSentence() {
     updateSent.updatedWordsAndIndx = updatedWords
     axios({
         method: 'post',
-        url: '/sents/updatesentences',
+        url: '/sents/updatesentences?name=' + collname,
         data: {
             data: updateSent
         }

@@ -3,9 +3,8 @@ const router = express.Router();
 const labels = require('../controllers/labelController');
 
 
-router.route('/:id').get(labels.index)
-router.route('/:id').post(labels.newTag).delete(labels.deleteTag)
-
+router.route('/labelset').get(labels.indexTagSet).post(labels.createTagSet)
+router.route('/:id').get(labels.index).post(labels.newTag).delete(labels.deleteTag)
 
 
 

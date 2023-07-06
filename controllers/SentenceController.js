@@ -8,7 +8,7 @@ module.exports.index = async (req, res) => {
         const page = parseInt(req.query.page);
         collection = req.query.name
         const db = await connect();
-        const labels = await db.collection('labels').find().toArray();
+        const labels = await db.collection('labels_systematicReviews').find().toArray();
         const sentences = res.paginatedResults;
         res.render('sentences/sentence', { labels, sentences, page, collection })
     } catch {

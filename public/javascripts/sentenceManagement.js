@@ -117,9 +117,6 @@ function deletWordFunction(event) {
 }
 
 
-deleteWords.forEach(deleteWord => {
-    deleteWord.addEventListener('click', deletWordFunction)
-});
 
 
 function saveWordsFunction(event) {
@@ -146,4 +143,8 @@ function saveWordsFunction(event) {
 }
 
 saveSentWords.addEventListener('click', saveWordsFunction)
+deleteWords.forEach(deleteWord => {
+    deleteWord.addEventListener('click', deletWordFunction)
+});
+
 

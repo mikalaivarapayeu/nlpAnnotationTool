@@ -6,9 +6,11 @@ const { connect, createObjectIdFilter } = require('../db');
 module.exports.index = async (req, res) => {
     try {
         const page = parseInt(req.query.page);
-        collection = req.query.name
+        const collection = req.query.name
+        const labelSetName = req.query.lbsname
+        // console.log(labelSetName)
         const db = await connect();
-        const labels = await db.collection('labels_systematicReviews').find().toArray();
+        const labels = await db.collection(labelSetName).find().toArray();
         const sentences = res.paginatedResults;
         res.render('sentences/sentence', { labels, sentences, page, collection })
     } catch {

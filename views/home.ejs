@@ -26,19 +26,35 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <h1> Welcome to Annotation Application</h1>
     </div>
-    <div>
-        <h5>The name of sentece and label collections</h5>
-    </div>
-    <div>
-        <ul class="list-group list-group-flush">
-            <% for (let i=0; i<collections.length; i++) {%>
-                <li class="list-group-item">
-                    <a href="/sents?name=<%= collections[i] %>&page=1">
+    <div class="col-md-8 offset-md-2">
+        <div>
+            <h5>Select Dataset to Annotate</h5>
+        </div>
+        <% for (let i=0; i<collections.length; i++) {%>
+            <div class="row mb-3 collectionNameRow">
+                <div class="col-5 collectionName">
+                    <span>
                         <%= collections[i] %>
-                    </a>
-                </li>
-                <% } %>
-        </ul>
+                    </span>
+                </div>
+                <div class="col-5">
+                    <select class="form-select form-select-sm" name="selectLabelSet" id="<%= collections[i] %>">
+                        <% for (let labelSet of labelSetLIst) {%>
+                            <option value="<%= labelSet%>">
+                                <%= labelSet%>
+                            </option>
+                            <% }%>
+
+                    </select>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-sm btn-primary goToAnnotation" type="button">
+                        Apply
+                    </button>
+                </div>
+
+            </div>
+            <% } %>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -46,6 +62,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
         integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
         crossorigin="anonymous"></script>
+    <script src="/javascripts/home.js"></script>
 </body>
 
 </html>

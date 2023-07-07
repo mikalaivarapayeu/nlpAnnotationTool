@@ -47,11 +47,17 @@ app.use((req, res, next) => {
 
 app.get('/', async (req, res) => {
     const collections = [];
+    const labelSetLIst = []
+    const filter = { name: { $not: { $regex: /^labels_/i } } }
+    const filterLabelSet = { name: { $regex: /^labels_/i } }
     const db = await connect();
-    await db.listCollections().forEach(collection => {
+    await db.listCollections(filter).forEach(collection => {
         collections.push(collection["name"])
     })
-    res.render('home', { collections })
+    await db.listCollections(filterLabelSet).forEach(collection => {
+        labelSetLIst.push(collection["name"])
+    })
+    res.render('home', { collections, labelSetLIst })
 });
 
 

@@ -62,12 +62,13 @@
                     <div class="sentAnnotNav">
                         <button class="btn btn-primary updateSentence">Update Annotation</button>
                         <a class=" btn btn-primary d-inline "
-                            href="sents/duplicate/<%=sent._id %>?page=<%=page %>&name=<%= collection %>">Duplicate
+                            href="sents/duplicate/<%=sent._id %>?page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>">Duplicate
                             Sentence</a>
                         <a class="btn btn-primary d-inline"
-                            href="sents/<%=sent._id %>?page=<%=page %>&name=<%= collection %>">Sentence
+                            href="sents/<%=sent._id %>?page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>">Sentence
                             Details</a>
-                        <form action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>&name=<%= collection %>"
+                        <form
+                            action="sents/<%=sent._id %>?_method=DELETE&page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>"
                             method="POST" class="d-inline">
                             <button class="btn btn-danger position-absolute start-50">Delete Sentence</button>
                         </form>
@@ -151,31 +152,35 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <% if (page> 1) { %>
-                    <li class="page-item"><a class="page-link" href="/sents?page=1&name=<%= collection %>">Start
+                    <li class="page-item"><a class="page-link"
+                            href="/sents?page=1&name=<%= collection %>&lbsname=<%=labelSetName%>">Start
                             Page</a>
                     </li>
                     <li class="page-item"><a class="page-link"
-                            href="/sents?page=<%=page-1 %>&name=<%= collection %>">Previous</a></li>
+                            href="/sents?page=<%=page-1 %>&name=<%= collection %>&lbsname=<%=labelSetName%>">Previous</a>
+                    </li>
                     <li class="page-item active"><a class="page-link"
-                            href="/sents?page=<%=page %>&name=<%= collection %>">
+                            href="/sents?page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>">
                             <%=page%>
                         </a></li>
                     <% } else { %>
                         <li class="page-item active"><a class="page-link"
-                                href="/sents?page=<%=page %>&name=<%= collection %>">1</a></li>
+                                href="/sents?page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>">1</a>
+                        </li>
 
                         <% } %>
                             <li class="page-item"><a class="page-link"
-                                    href="/sents?page=<%=page+1 %>&name=<%= collection %>">
+                                    href="/sents?page=<%=page+1 %>&name=<%= collection %>&lbsname=<%=labelSetName%>">
                                     <%=page+1%>
                                 </a></li>
                             <li class="page-item"><a class="page-link"
-                                    href="/sents?page=<%=page+2 %>&name=<%= collection %>">
+                                    href="/sents?page=<%=page+2 %>&name=<%= collection %>&lbsname=<%=labelSetName%>">
                                     <%=page+2%>
                                 </a></li>
                             <% if (sentences.next) { %>
                                 <li class="page-item"><a class="page-link"
-                                        href="/sents?page=<%=page+3 %>&name=<%= collection %>">Next</a></li>
+                                        href="/sents?page=<%=page+3 %>&name=<%= collection %>&lbsname=<%=labelSetName%>">Next</a>
+                                </li>
                                 <% } %>
 
             </ul>

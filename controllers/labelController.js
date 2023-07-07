@@ -4,11 +4,12 @@ const { connect, createObjectIdFilter } = require('../db');
 
 module.exports.index = async (req, res) => {
     try {
-        const collection = req.query.name
+        const collection = req.query.name;
+        const labelSetName = req.query.lbsname;
         const page = parseInt(req.query.page);
         const db = await connect();
         const labels = await db.collection('labels_systematicReviews').find().toArray();
-        res.render('labels/label', { labels, page, collection })
+        res.render('labels/label', { labels, page, collection, labelSetName })
     } catch {
         console.log(error)
     }
@@ -49,7 +50,6 @@ module.exports.deleteTag = async (req, res) => {
         const page = parseInt(req.query.page);
         if (label.name !== '') {
             const update = { $pull: { [tagName]: { name: label.name } } };
-            // const options = { upsert: true };
             const db = await connect();
             const filter = await createObjectIdFilter(id);
             await db.collection('labels_systematicReviews').findOneAndUpdate(filter, update);
@@ -68,7 +68,6 @@ module.exports.indexTagSet = async (req, res) => {
     await db.listCollections(filter).forEach(labelSet => {
         labelSetList.push(labelSet["name"])
     })
-    // console.log(labelList)
     res.render('labels/labelSet', { labelSetList })
 }
 
@@ -87,6 +86,5 @@ module.exports.createTagSet = async (req, res) => {
     } catch {
         console.log(error)
     };
-    // console.log(collectionInsert)
     res.render('labels/labelSet');
 }

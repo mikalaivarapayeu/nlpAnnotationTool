@@ -10,9 +10,10 @@ module.exports.index = async (req, res) => {
         const labelSetName = req.query.lbsname
         // console.log(labelSetName)
         const db = await connect();
-        const labels = await db.collection(labelSetName).find().toArray();
+        const labels = await db.collection('labels_systematicReviews').find({ labelSetName: labelSetName }).toArray();
+        console.log(labels)
         const sentences = res.paginatedResults;
-        res.render('sentences/sentence', { labels, sentences, page, collection })
+        res.render('sentences/sentence', { labels, sentences, page, collection, labelSetName })
     } catch {
         console.log(error)
     }
@@ -27,13 +28,14 @@ module.exports.duplicateSentence = async (req, res) => {
     try {
         const page = parseInt(req.query.page);
         collection = req.query.name;
+        const labelSetName = req.query.lbsname;
         const { id } = req.params;
         const db = await connect();
         const filter = await createObjectIdFilter(id);
         doc = await db.collection(collection).findOne(filter);
         delete doc['_id']
         db.collection(collection).insertOne(doc);
-        res.redirect(`/sents?page=${page}&name=${collection}`)
+        res.redirect(`/sents?page=${page}&name=${collection}&lbsname=${labelSetName}`)
     } catch {
         console.log(error)
     }
@@ -63,7 +65,7 @@ module.exports.updateSingleSentence = async (req, res) => {
         }
         await db.collection(collection).updateOne(filter, update);
         // req.flash('success', 'Successfully updated the sentence.')
-        res.redirect(`/sents?page=${page}&name=${collection}`)
+        // res.redirect(`/sents?page=${page}&name=${collection}`)
     } catch {
         console.log(error)
     }
@@ -76,12 +78,13 @@ module.exports.updateSingleSentence = async (req, res) => {
 module.exports.deleteSingleSentence = async (req, res) => {
     try {
         const page = parseInt(req.query.page);
+        const labelSetName = req.query.lbsname;
         const collection = req.query.name
         const { id } = req.params;
         const db = await connect();
         const filter = await createObjectIdFilter(id);
         db.collection(collection).deleteOne(filter)
-        res.redirect(`/sents?page=${page}&name=${collection}`)
+        res.redirect(`/sents?page=${page}&name=${collection}&lbsname=${labelSetName}`)
     } catch {
         console.log(error)
     }
@@ -91,11 +94,12 @@ module.exports.sentenceDetails = async (req, res) => {
     try {
         const { id } = req.params;
         const collection = req.query.name;
+        const labelSetName = req.query.lbsname;
         const page = parseInt(req.query.page);
         const db = await connect();
         const filter = await createObjectIdFilter(id);
         const sentence = await db.collection(collection).findOne(filter);
-        res.render('sentences/sentenceDetails', { sentence, page, collection })
+        res.render('sentences/sentenceDetails', { sentence, page, collection, labelSetName })
     } catch {
         console.log(error)
     }
@@ -114,7 +118,7 @@ module.exports.updateSentWords = async (req, res) => {
             }
         }
         await db.collection(collection).updateOne(filter, update);
-        const sentence = await db.collection('sentences').findOne(filter);
+        // const sentence = await db.collection('sentences').findOne(filter);
         // res.redirect('sentences/sentenceDetails', { sentence })
     } catch {
         console.log(error)

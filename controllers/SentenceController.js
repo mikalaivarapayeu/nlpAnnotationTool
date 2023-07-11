@@ -50,6 +50,7 @@ module.exports.updateSingleSentence = async (req, res) => {
         const { data } = req.body;
         const page = parseInt(req.query.page);
         const collection = req.query.name;
+        const labelSetName = req.query.lbsname;
         const db = await connect();
         const filter = await createObjectIdFilter(data.sentNumber);
         const sentence = await db.collection(collection).findOne(filter);
@@ -65,7 +66,7 @@ module.exports.updateSingleSentence = async (req, res) => {
         }
         await db.collection(collection).updateOne(filter, update);
         // req.flash('success', 'Successfully updated the sentence.')
-        // res.redirect(`/sents?page=${page}&name=${collection}`)
+        res.redirect(`/sents?page=${page}&name=${collection}&lbsname=${labelSetName}`)
     } catch {
         console.log(error)
     }

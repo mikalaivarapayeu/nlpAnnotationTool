@@ -5,6 +5,7 @@ const taggedWords = document.querySelectorAll('.taggedSpan');
 const semanticTags = document.querySelectorAll('.semanticTagSelection select')
 const theSelfContained = document.querySelectorAll('.isSelfContainedSelection select')
 const theExtractable = document.querySelectorAll('.extractionSelection select')
+const searchPage = document.querySelector('#searchPageBtn')
 
 // console.log(semanticTags)
 
@@ -117,6 +118,14 @@ function booleanSelection(e) {
 
 }
 
+function findPage(e) {
+    e.preventDefault()
+    const pageFormData = document.querySelector('#pageSearch')
+    if ((pageFormData.value >= 1)) {
+        location.href = `/sents?page=${pageFormData.value}&name=${collname}&lbsname=${lblSetName}`
+    }
+}
+
 
 
 
@@ -151,3 +160,5 @@ theSelfContained.forEach(selfContaninedItem => {
 theExtractable.forEach(isExtractable => {
     isExtractable.addEventListener('change', booleanSelection)
 })
+
+searchPage.addEventListener('click', findPage)

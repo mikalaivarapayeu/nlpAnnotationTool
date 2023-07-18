@@ -11,9 +11,21 @@ module.exports = function paginatedResults() {
         const endIndex = (page + 3) * limit
         const results = {}
         const db = await connect();
+        let lastPage = 0
+        const collectionLength = await db.collection(collName).countDocuments()
+
+
+        if (collectionLength % limit > 0) {
+            lastPage = Math.floor(collectionLength / limit) + 1
+        } else {
+            lastPage = collectionLength / limit
+        }
+
+        results.lastPage = lastPage;
         // console.log(db.collection(collName))
 
-        if (endIndex < await db.collection(collName).countDocuments()) {
+
+        if (endIndex < collectionLength) {
             results.next = {
                 page: page + 3,
                 limit: limit

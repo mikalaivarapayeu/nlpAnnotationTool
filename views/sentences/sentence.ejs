@@ -52,7 +52,7 @@
                                     </span>
                                     <% } else {%>
                                         <span class="taggedSpan">
-                                            <span class="taggedWord word" data-widx="<%=i %>">
+                                            <span class="taggedWord" data-widx="<%=i %>">
                                                 <%=sent.sentWords[i][0] %>
                                             </span>
                                             <span class="taggedLabel">
@@ -212,5 +212,6 @@
     </section>
     <script> const lblSetName = "<%= labelSetName%>"</script>
     <script> const collname = "<%= collection %>"</script>
+    <script> const pageForUpdate = "<%= page %>"</script>
     <script src=" https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="/javascripts/annotation.js"></script>

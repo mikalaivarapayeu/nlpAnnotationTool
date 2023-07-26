@@ -19,6 +19,7 @@ function activeLabelToggle(e) {
 function untaggingWord(e) {
     const clickedElmUnTagged = this;
     const spanWordUntagged = document.createElement('span');
+    console.log(clickedElmUnTagged)
     const wordIdx = clickedElmUnTagged.firstElementChild.getAttribute('data-widx');
     spanWordUntagged.append(clickedElmUnTagged.firstElementChild.innerText);
     spanWordUntagged.setAttribute('data-widx', wordIdx);
@@ -37,7 +38,7 @@ function wordTagging(e) {
     const spanLabelWord = document.createElement('span');
     taggedWordSpan.append(clickedElm.innerText);
     taggedWordSpan.setAttribute('data-widx', wordIdx);
-    taggedWordSpan.classList.add('taggedWord', 'word');
+    taggedWordSpan.classList.add('taggedWord');
     spanLabel.append(activeLabel.innerText);
     spanLabel.classList.add('taggedLabel')
     spanLabelWord.append(taggedWordSpan)
@@ -56,7 +57,7 @@ function updateSentence() {
     const semanticLabel = document.querySelector(`[id ="${selectedRowSent.id}"] .semanticLabel .semTagPlaceHolder span`)
     const extractable = document.querySelector(`[id ="${selectedRowSent.id}"] .extractable .extractablePlaceHolder span`)
     const selfContained = document.querySelector(`[id ="${selectedRowSent.id}"] .isSelfContained .containedPlaceHolder span`)
-    const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .word`)
+    const words = document.querySelectorAll(`[id ="${selectedRowSent.id}"] .sentPlace .word, [id ="${selectedRowSent.id}"] .sentPlace .taggedWord`)
     updateSent.sentNumber = selectedRowSent.id
     updateSent.semanticLabel = semanticLabel.innerText
     if (extractable.innerText === 'Yes') {
@@ -84,11 +85,12 @@ function updateSentence() {
         }
         updatedWords.push(wordIndexPair)
     }
-    console.log(updateSent)
+    // console.log(updateSent)
     updateSent.updatedWordsAndIndx = updatedWords
     axios({
         method: 'post',
-        url: '/sents/updatesentences?name=' + collname,
+        // url: '/sents/updatesentences?name=' + collname,
+        url: `/sents/updatesentences?page=${pageForUpdate}&name=${collname}&lbsname=${lblSetName}`,
         data: {
             data: updateSent
         }

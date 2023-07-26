@@ -8,11 +8,10 @@ module.exports.index = async (req, res) => {
         const page = parseInt(req.query.page);
         const collection = req.query.name
         const labelSetName = req.query.lbsname
-        // console.log(labelSetName)
         const db = await connect();
         const labels = await db.collection('labels_systematicReviews').find({ labelSetName: labelSetName }).toArray();
-        console.log(labels)
         const sentences = res.paginatedResults;
+        // console.log(sentences.lastPage)
         res.render('sentences/sentence', { labels, sentences, page, collection, labelSetName })
     } catch {
         console.log(error)

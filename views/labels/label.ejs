@@ -15,8 +15,7 @@
             <div class="col-6" id="semanticTags">
                 <h5>Semantic Tags</h5>
                 <div class="mb-3">
-                    <form
-                        action="/labels/<%=labels[0]._id%>?tagname=semanticLabels&page=<%=page+3 %>&name=<%= collection %>&lbsname=<%=labelSetName%>"
+                    <form action="/labels/<%=labels[0]._id%>?tagname=semanticLabels&<%=queryItems%><%=page %>"
                         method="POST">
                         <div class="d-flex flex-row">
                             <div>
@@ -40,7 +39,7 @@
                                 <%= label.name%>
                             </span>
                             <form class="d-inline"
-                                action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=semanticLabels&page=<%=page+3 %>&name=<%= collection %>&lbsname=<%=labelSetName%>"
+                                action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=semanticLabels&<%=queryItems%><%=page %>"
                                 method="POST">
                                 <input type="hidden" id="postId" name="label[name]" value=<%=label.name%> />
                                 <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>
@@ -53,8 +52,7 @@
             <div class="col-6" id="syntacticTags">
                 <h5>Phrase Tags</h5>
                 <div class="mb-3">
-                    <form
-                        action="/labels/<%=labels[0]._id%>?tagname=phraseLabels&page=<%=page %>&name=<%= collection %>&lbsname=<%=labelSetName%>"
+                    <form action="/labels/<%=labels[0]._id%>?tagname=phraseLabels&<%=queryItems%><%=page %>"
                         method="POST">
                         <div class="d-flex flex-row">
                             <div>
@@ -70,14 +68,17 @@
                         </div>
                     </form>
                 </div>
-                <ul class="col-6 list-group mb-3">
+                <ul class="col-8 list-group mb-3">
                     <% for (let label of labels[0].phraseLabels) {%>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>
                                 <%= label.name%>
                             </span>
+                            <a class="btn btn-primary btn-sm" href="/sents?s=<%= label.name%>&<%=queryItems%>1"
+                                role="button">See
+                                Annotated</a>
                             <form class="d-inline"
-                                action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=phraseLabels&page=<%=page+3 %>&name=<%= collection %>&lbsname=<%=labelSetName%>"
+                                action="/labels/<%=labels[0]._id%>?_method=DELETE&tagname=phraseLabels&<%=queryItems%><%=page %>"
                                 method="POST">
                                 <input type="hidden" name="label[name]" value=<%=label.name%> />
                                 <button type="submit" class="btn btn btn-success btn-sm">DeleteTag</button>

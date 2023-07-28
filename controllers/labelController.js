@@ -9,7 +9,8 @@ module.exports.index = async (req, res) => {
         const page = parseInt(req.query.page);
         const db = await connect();
         const labels = await db.collection('labels_systematicReviews').find({ labelSetName: labelSetName }).toArray();
-        res.render('labels/label', { labels, page, collection, labelSetName })
+        let queryItems = `name=${collection}&lbsname=${labelSetName}&page=`
+        res.render('labels/label', { labels, page, queryItems })
     } catch {
         console.log(error)
     }

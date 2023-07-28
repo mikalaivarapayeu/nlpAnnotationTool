@@ -4,7 +4,7 @@ const modal = document.getElementById('Modal')
 const wordSave = document.querySelector("#saveWord")
 const deleteWords = document.querySelectorAll('.deleteWord');
 const saveSentWords = document.querySelector("#saveSentWords")
-
+const annotationLink = document.querySelector("#annotationLink")
 
 
 function duplicateWordLabelPair(e) {
@@ -122,8 +122,8 @@ function deletWordFunction(event) {
 function saveWordsFunction(event) {
     const allWordLabelPairsDivs = document.querySelectorAll('.wordLabelPair')
     const buttonId = document.querySelector('#saveSentWords')
-    // console.log(buttonId.getAttribute('data-sent-id'))
-    const wordLabelList = []
+    const queryParam = annotationLink.href.split("?")[1];
+    const wordLabelList = [];
     for (let wordLabelDiv of allWordLabelPairsDivs) {
         const wordLabelPair = []
         wordLabelPair.push(wordLabelDiv.children[0].children[0].innerText)
@@ -131,9 +131,10 @@ function saveWordsFunction(event) {
         wordLabelList.push(wordLabelPair)
 
     }
+    // console.log(queryParam)
     axios({
         method: 'post',
-        url: '/sents/updatesentwords',
+        url: `/sents/updatesentwords?` + queryParam,
         data: {
             sent_id: buttonId.getAttribute('data-sent-id'),
             data: wordLabelList

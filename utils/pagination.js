@@ -2,6 +2,7 @@ const { connect } = require('../db');
 
 module.exports = function paginatedResults() {
     return async (req, res, next) => {
+        const searhItem = req.query.s;
         const page = parseInt(req.query.page)
         // const collName = 'sentences'
         const collName = req.query.name
@@ -39,7 +40,13 @@ module.exports = function paginatedResults() {
             }
         }
         try {
-            results.results = await db.collection(collName).find().sort({ 'sentNumber': 1 }).limit(limit).skip(startIndex).toArray()
+            results.results = {}
+            if (searhItem) {
+                let searhTerm = searhItem.toUpperCase()
+                results.results = await db.collection(collName).find({ sentWords: { $elemMatch: { $elemMatch: { $in: [searhTerm] } } } }).sort({ 'sentNumber': 1 }).limit(limit).skip(startIndex).toArray()
+            } else {
+                results.results = await db.collection(collName).find().sort({ 'sentNumber': 1 }).limit(limit).skip(startIndex).toArray()
+            }
             res.paginatedResults = results
             next()
         } catch (e) {

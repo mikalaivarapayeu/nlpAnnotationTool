@@ -5,14 +5,22 @@ const { connect, createObjectIdFilter } = require('../db');
 
 module.exports.index = async (req, res) => {
     try {
+        const searchTerm = req.query.s
         const page = parseInt(req.query.page);
         const collection = req.query.name
         const labelSetName = req.query.lbsname
         const db = await connect();
         const labels = await db.collection('labels_systematicReviews').find({ labelSetName: labelSetName }).toArray();
         const sentences = res.paginatedResults;
-        // console.log(sentences.lastPage)
-        res.render('sentences/sentence', { labels, sentences, page, collection, labelSetName })
+        let queryItems;
+        if (searchTerm) {
+            queryItems = `s=${searchTerm}&name=${collection}&lbsname=${labelSetName}&page=`
+        } else {
+            queryItems = `name=${collection}&lbsname=${labelSetName}&page=`
+        }
+
+        // res.render('sentences/sentence', { labels, sentences, page, collection, labelSetName, queryItems })
+        res.render('sentences/sentence', { labels, sentences, page, queryItems })
     } catch {
         console.log(error)
     }
@@ -117,9 +125,11 @@ module.exports.updateSentWords = async (req, res) => {
                 sentWords: data
             }
         }
+        // console.log(req.query)
         await db.collection(collection).updateOne(filter, update);
-        // const sentence = await db.collection('sentences').findOne(filter);
+        // const sentence = await db.collection(collection).findOne(filter);
         // res.redirect('sentences/sentenceDetails', { sentence })
+
     } catch {
         console.log(error)
     }

@@ -85,12 +85,12 @@ function updateSentence() {
         }
         updatedWords.push(wordIndexPair)
     }
-    // console.log(updateSent)
     updateSent.updatedWordsAndIndx = updatedWords
+    let queryParam = reqParam.replaceAll('&amp;', '&');
     axios({
         method: 'post',
-        // url: '/sents/updatesentences?name=' + collname,
-        url: `/sents/updatesentences?page=${pageForUpdate}&name=${collname}&lbsname=${lblSetName}`,
+        // url: `/sents/updatesentences?page=${pageForUpdate}&name=${collname}&lbsname=${lblSetName}`,
+        url: `/sents/updatesentences?${queryParam}${pageForUpdate}`,
         data: {
             data: updateSent
         }
@@ -124,7 +124,9 @@ function findPage(e) {
     e.preventDefault()
     const pageFormData = document.querySelector('#pageSearch')
     if ((pageFormData.value >= 1)) {
-        location.href = `/sents?page=${pageFormData.value}&name=${collname}&lbsname=${lblSetName}`
+        let queryParam = reqParam.replaceAll('&amp;', '&');
+        location.href = `/sents?${queryParam}${pageFormData.value}`
+        // location.href = `/sents?page=${pageFormData.value}&name=${collname}&lbsname=${lblSetName}`
     }
 }
 

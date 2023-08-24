@@ -42,7 +42,7 @@
         </div>
         <% for (let sent of sentences.results) {%>
             <div class="row mr-2 mb-3 border-bottom border-primary sents" id="<%=sent._id %>">
-                <div class="col col-md-8 my-2 ">
+                <div class="col col-md-8 my-2 sentPlaceDiv">
                     <p class="sentPlace">
                         <%=sent.sentNumber %>
                             <% for (let i=0; i< sent.sentWords.length; i++) {%>
@@ -73,6 +73,8 @@
                             class="d-inline">
                             <button class="btn btn-danger position-absolute start-50">Delete Sentence</button>
                         </form>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Modal">Label
+                            Range</button>
                     </div>
                 </div>
                 <div class="col col-md-2">
@@ -197,6 +199,26 @@
 
             </ul>
         </nav>
+        <section>
+            <!-- Modal -->
+            <div class="modal fade" id="Modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eModalLabel">Select Word Range to Label</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info" id="labelRange">Label Range</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </section>
     <script> const reqParam = "<%=queryItems%>"</script>
     <script> const pageForUpdate = "<%= page %>"</script>

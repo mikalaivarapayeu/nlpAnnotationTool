@@ -59,3 +59,11 @@
     padding: 2px 5px;
 
 }
+
+.rangeSelection {
+    background-color: rgb(33, 215, 100);
+    color: black;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 5%;
+}

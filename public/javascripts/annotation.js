@@ -6,8 +6,10 @@ const semanticTags = document.querySelectorAll('.semanticTagSelection select')
 const theSelfContained = document.querySelectorAll('.isSelfContainedSelection select')
 const theExtractable = document.querySelectorAll('.extractionSelection select')
 const searchPage = document.querySelector('#searchPageBtn')
-
+const modal = document.getElementById('Modal')
+const labelRange = document.querySelector('#labelRange')
 // console.log(semanticTags)
+
 
 
 function activeLabelToggle(e) {
@@ -19,7 +21,7 @@ function activeLabelToggle(e) {
 function untaggingWord(e) {
     const clickedElmUnTagged = this;
     const spanWordUntagged = document.createElement('span');
-    console.log(clickedElmUnTagged)
+    // console.log(clickedElmUnTagged)
     const wordIdx = clickedElmUnTagged.firstElementChild.getAttribute('data-widx');
     spanWordUntagged.append(clickedElmUnTagged.firstElementChild.innerText);
     spanWordUntagged.setAttribute('data-widx', wordIdx);
@@ -103,7 +105,7 @@ function semanticTagSelection(e) {
     const newSelectedTag = this;
     const currentTag = this.parentElement.parentElement.children[1].children[0]
     currentTag.innerText = newSelectedTag.value
-    // console.log(currentTag)
+
 
 }
 
@@ -128,6 +130,73 @@ function findPage(e) {
         location.href = `/sents?${queryParam}${pageFormData.value}`
         // location.href = `/sents?page=${pageFormData.value}&name=${collname}&lbsname=${lblSetName}`
     }
+}
+
+
+
+modal.addEventListener('show.bs.modal', event => {
+    const buttonModal = event.relatedTarget;
+    const modalBody = document.querySelector('.modal-body');
+    const closestSentRow = buttonModal.closest('.sentPlaceDiv').children[0];
+    const sentID = buttonModal.closest('.sents').getAttribute('id')
+    const clone = closestSentRow.cloneNode(true);
+    clone.setAttribute('data-sid', sentID)
+    for (let el of clone.children) {
+        el.addEventListener('click', function (e) {
+            this.classList.toggle('rangeSelection');
+        })
+    }
+    modalBody.appendChild(clone)
+})
+
+function rangeSelection(e) {
+    this.classList.toggle('rangeSelection');
+}
+
+modal.addEventListener('hidden.bs.modal', function (event) {
+    const modalBody = document.querySelector('.modal-body');
+    modalBody.innerHTML = "";
+})
+
+function labelRangeFunction() {
+    const rangeBorders = []
+    const selectedModal = bootstrap.Modal.getInstance(document.getElementById('Modal'));
+    const modalSent = document.querySelector("[data-sid]")
+    const sentID = document.querySelector("[data-sid]").getAttribute("data-sid")
+    const sentToLabel = document.querySelector(`[id ="${sentID}"] div p`)
+    for (let el of modalSent.children) {
+        if (el.classList.contains('rangeSelection')) {
+            if (el.classList.contains('taggedSpan')) {
+                rangeBorders.push(el.children[0].getAttribute('data-widx'))
+            } else {
+                rangeBorders.push(el.getAttribute('data-widx'))
+            }
+
+        }
+    }
+
+    if (rangeBorders.length === 2) {
+        let lowerRange = parseInt(rangeBorders[0])
+        let upperRange = parseInt(rangeBorders[1]) + 1
+        for (let el of sentToLabel.children) {
+            let wIdx;
+            if (el.classList.contains('taggedSpan')) {
+                wIdx = parseInt(el.children[0].getAttribute('data-widx'))
+                // console.log(wIdx)
+            } else {
+                wIdx = parseInt(el.getAttribute('data-widx'))
+            }
+            if (wIdx >= lowerRange && wIdx < upperRange) {
+                el.dispatchEvent(new Event('click', { 'bubbles': true }));
+
+            }
+
+        }
+
+        // selectedModal.hide()
+    }
+
+
 }
 
 
@@ -166,3 +235,5 @@ theExtractable.forEach(isExtractable => {
 })
 
 searchPage.addEventListener('click', findPage)
+
+labelRange.addEventListener('click', labelRangeFunction)

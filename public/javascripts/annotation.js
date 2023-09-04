@@ -8,7 +8,8 @@ const theExtractable = document.querySelectorAll('.extractionSelection select')
 const searchPage = document.querySelector('#searchPageBtn')
 const modal = document.getElementById('Modal')
 const labelRange = document.querySelector('#labelRange')
-// console.log(semanticTags)
+const labels = document.querySelectorAll('.label')
+
 
 
 
@@ -33,6 +34,7 @@ function untaggingWord(e) {
 
 function wordTagging(e) {
     const activeLabel = document.querySelector('.activeLabel');
+    const tagColor = activeLabel.getAttribute('data-tagcolor')
     const clickedElm = this;
     const wordIdx = this.getAttribute('data-widx')
     const taggedWordSpan = document.createElement('span');
@@ -48,6 +50,7 @@ function wordTagging(e) {
     // spanLabelWord.setAttribute('wlbl', activeLabel.innerText)
     spanLabelWord.classList.toggle('taggedSpan');
     spanLabelWord.addEventListener('click', untaggingWord);
+    spanLabelWord.style.backgroundColor = tagColor;
     clickedElm.replaceWith(spanLabelWord);
 
 }
@@ -131,6 +134,20 @@ function findPage(e) {
         // location.href = `/sents?page=${pageFormData.value}&name=${collname}&lbsname=${lblSetName}`
     }
 }
+
+
+function setupColor() {
+    for (let tagged of taggedWords) {
+        let taggedLabel = tagged.children[1].innerText.toLowerCase()
+        for (let l of labels) {
+            if (l.innerText.toLowerCase() === taggedLabel) {
+                tagged.style.backgroundColor = l.getAttribute('data-tagcolor')
+            }
+        }
+    }
+}
+
+setupColor()
 
 
 

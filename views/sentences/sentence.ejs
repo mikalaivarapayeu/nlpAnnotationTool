@@ -8,11 +8,13 @@
                 <ul class="list-inline d-inline">
                     <% for (let i=0; i<labels[0].phraseLabels.length; i++) {%>
                         <% if (i===0) {%>
-                            <li class="list-inline-item activeLabel">
+                            <li class="list-inline-item activeLabel label"
+                                data-tagColor="<%= labels[0].phraseLabels[i].tagColor%>">
                                 <%= labels[0].phraseLabels[i].name%>
                             </li>
                             <% } else {%>
-                                <li class="list-inline-item">
+                                <li class="list-inline-item label"
+                                    data-tagColor="<%= labels[0].phraseLabels[i].tagColor%>">
                                     <%= labels[0].phraseLabels[i].name%>
                                 </li>
                                 <%} }%>

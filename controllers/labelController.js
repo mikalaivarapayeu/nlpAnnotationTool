@@ -1,6 +1,14 @@
 const { connect, createObjectIdFilter } = require('../db');
 
 
+async function colorGenerator() {
+    let red = Math.floor(Math.random() * 215)
+    let green = Math.floor(Math.random() * 215)
+    let blue = Math.floor(Math.random() * 215)
+    console.log(`rgb(${red},${green},${blue})`)
+    return `rgb(${red},${green},${blue})`
+}
+
 
 module.exports.index = async (req, res) => {
     try {
@@ -26,7 +34,12 @@ module.exports.newTag = async (req, res) => {
         const collection = req.query.name
         const page = parseInt(req.query.page);
         if (label.name !== '') {
-            const update = { $push: { [tagName]: { name: label.name } } };
+            let update = { $push: { [tagName]: { name: label.name } } };
+            if (tagName === "phraseLabels") {
+                const color = await colorGenerator();
+                update = { $push: { [tagName]: { name: label.name, tagColor: color } } };
+            }
+            console.log(update);
             const db = await connect();
             const filter = await createObjectIdFilter(id);
             await db.collection('labels_systematicReviews').findOneAndUpdate(filter, update);
